@@ -18,3 +18,6 @@ Route::get('/', function () {
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
 Auth::routes(['register' => false]);
+Route::get('logout', 'Auth\LoginController@logout', function () {
+    return abort(404);
+});
