@@ -21,3 +21,10 @@ Auth::routes(['register' => false]);
 Route::get('logout', 'Auth\LoginController@logout', function () {
     return abort(404);
 });
+Route::prefix('bip')->group(function(){
+  Route::get('userdata','BusinessController@userdata')->name('bip');
+  Route::resource('profiles','BusinessController',['names'=>[
+    'index' => 'bip',
+    'create' => 'bip',
+  ]]);
+});
