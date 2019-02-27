@@ -16,7 +16,7 @@
 <div class="page-head">
     <!-- BEGIN PAGE TITLE -->
     <div class="page-title">
-        <h1>BIP Admin | User Data
+        <h1>BIP Admin | BIP User Data
             <small>statistics, charts and reports</small>
         </h1>
     </div>
@@ -56,29 +56,33 @@
                 <table class="table table-striped table-bordered table-hover" id="sample_1">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
+                            <th>Nama</th>
+                            <th>Bisnis</th>
+                            <th>Instansi</th>
+                            <th>Angkatan</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
+                            <th>Nama</th>
+                            <th>Bisnis</th>
+                            <th>Instansi</th>
+                            <th>Angkatan</th>
+                            <th>Action</th>
                         </tr>
                     </tfoot>
                     <tbody>
                       <tr>
                           <td>Tiger Nixon</td>
                           <td>System Architect</td>
-                          <td>Edinburgh</td>
-                          <td>61</td>
-                          <td>2011/04/25</td>
+                          <td>PNJ</td>
+                          <td>2018</td>
+                          <td>
+                            <a href="#" class="btn btn-icon-only blue"><i class="fa fa-info"></i> </a>
+                            <a href="#" class="btn btn-icon-only default"><i class="fa fa-gear"></i> </a>
+                            <a href="#" class="btn btn-icon-only red"><i class="fa fa-times"></i> </a>
+                          </td>
                       </tr>
                     </tbody>
                 </table>

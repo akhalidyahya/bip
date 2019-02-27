@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class BusinessController extends Controller
+class MakeitController extends Controller
 {
     public function __construct()
     {
@@ -17,8 +17,8 @@ class BusinessController extends Controller
      */
     public function index()
     {
-        return view('pages/profilebusiness',[
-          'sidebar' => 'bipprofilebusiness'
+        return view('pages/userdatamakeit',[
+          'sidebar' => 'makeituserdata'
         ]);
     }
 
@@ -29,9 +29,7 @@ class BusinessController extends Controller
      */
     public function create()
     {
-        return view('pages/addprofilebusiness',[
-          'sidebar' => 'bipprofilebusiness'
-        ]);
+        //
     }
 
     /**
@@ -88,12 +86,5 @@ class BusinessController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function userdata()
-    {
-      return view('pages/userdatabip',[
-        'sidebar' => 'bipuserdata'
-      ]);
     }
 }

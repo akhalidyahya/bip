@@ -75,7 +75,7 @@
                 <!-- BEGIN LOGO -->
                 <div class="page-logo">
                     <a href="index.html">
-                        <img src="../assets/layouts/layout4/img/logo-light.png" alt="logo" class="logo-default" /> </a>
+                        <img src="{{asset('assets/layouts/layout4/img/logo-light.png')}}" alt="logo" class="logo-default" /> </a>
                     <div class="menu-toggler sidebar-toggler">
                         <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
                     </div>
@@ -110,7 +110,7 @@
                                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                     <span class="username username-hide-on-mobile"> {{ Auth::user()->name }} </span>
                                     <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
-                                    <img alt="" class="img-circle" src="../assets/layouts/layout4/img/avatar9.jpg" /> </a>
+                                    <img alt="" class="img-circle" src="{{asset('assets/layouts/layout4/img/avatar9.jpg')}}" /> </a>
                                 <ul class="dropdown-menu dropdown-menu-default">
 
                                     <li>
@@ -156,27 +156,27 @@
                                 <span class="arrow"></span>
                             </a>
                             <ul class="sub-menu">
-                                <li class="nav-item  ">
+                                <li class="nav-item {{ ($sidebar == 'bipprofilebusiness') ? 'active open' : ''}} ">
                                     <a href="{{url('bip/profiles')}}" class="nav-link ">
                                         <span class="title">Profile Business</span>
                                     </a>
                                 </li>
-                                <li class="nav-item  ">
+                                <li class="nav-item {{ ($sidebar == 'bipuserdata') ? 'active open' : ''}} ">
                                     <a href="{{url('bip/userdata')}}" class="nav-link ">
                                         <span class="title">User Data</span>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item  ">
+                        <li class="nav-item {{ (\Request::route()->getName() == 'makeit') ? 'active open' : ''}} ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="icon-paper-plane"></i>
                                 <span class="title">Make it</span>
                                 <span class="arrow"></span>
                             </a>
                             <ul class="sub-menu">
-                                <li class="nav-item  ">
-                                    <a href="ui_colors.html" class="nav-link ">
+                                <li class="nav-item {{ ($sidebar == 'makeituserdata') ? 'active open' : ''}} ">
+                                    <a href="{{url('makeit')}}" class="nav-link ">
                                         <span class="title">User Data</span>
                                     </a>
                                 </li>

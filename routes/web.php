@@ -28,3 +28,6 @@ Route::prefix('bip')->group(function(){
     'create' => 'bip',
   ]]);
 });
+Route::resource('makeit','MakeitController',['names'=>[
+  'index'=>'makeit'
+]]);

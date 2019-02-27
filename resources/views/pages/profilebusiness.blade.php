@@ -56,31 +56,25 @@
                 <table class="table table-striped table-bordered table-hover" id="sample_1">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
+                            <th>Nama</th>
+                            <th>Lokasi</th>
+                            <th>Pendapatan</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
+                            <th>Nama</th>
+                            <th>Lokasi</th>
+                            <th>Pendapatan</th>
                             <th>Action</th>
                         </tr>
                     </tfoot>
                     <tbody>
                       <tr>
-                          <td>Tiger Nixon</td>
                           <td>System Architect</td>
-                          <td>Edinburgh</td>
-                          <td>61</td>
-                          <td>2011/04/25</td>
+                          <td>Beji</td>
+                          <td>12000</td>
                           <td>
                             <a href="#" class="btn btn-icon-only blue"><i class="fa fa-info"></i> </a>
                             <a href="#" class="btn btn-icon-only default"><i class="fa fa-gear"></i> </a>
