@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 14, 2019 at 03:43 PM
+-- Generation Time: Mar 11, 2019 at 11:33 AM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -76,7 +76,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(3, 'Abdullah Khalid Yahya', 'khalid.yahya9@gmail.com', NULL, '$2y$10$sJCJjSdfFHDSj8TebHYQUuU5GuCk0Tn5AYI33nGbM5uSjWqPGlIHK', 'R2waLUYYog1dRcZFMBUhoAzGUHIcFEYD0wtNrskqCtZgy5xoOcMBvukwfeNy', '2019-02-13 21:04:52', '2019-02-13 21:04:52');
+(3, 'Admin BIP', 'admin@email.com', NULL, '$2y$10$sJCJjSdfFHDSj8TebHYQUuU5GuCk0Tn5AYI33nGbM5uSjWqPGlIHK', 'ACBcIXn7i2oGitDsQ8lyBIoEb7xWUHSuk9uuWuLwUl1DO1ZBFQ2XkX6buOp2', '2019-02-13 21:04:52', '2019-02-13 21:04:52');
 
 --
 -- Indexes for dumped tables
