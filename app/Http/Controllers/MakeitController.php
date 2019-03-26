@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
+
+use App\Makeit;
 
 class MakeitController extends Controller
 {
@@ -86,5 +89,16 @@ class MakeitController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function apimakeit()
+    {
+      $makeit = Makeit::all();
+
+      return DataTables::of($makeit)
+        ->addColumn('aksi',function($makeit) {
+          return '<a onclick="editData('.$makeit->id.')" class="btn btn-info btn-xs">Edit</a>'.' '.
+          '<a onclick="deleteData('.$makeit->id.')"class="btn btn-danger btn-xs">Delete</a>';
+      })->escapeColumns([])->make(true);
     }
 }

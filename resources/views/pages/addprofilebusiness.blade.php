@@ -1,5 +1,7 @@
 @extends('layouts.main')
 @section('content')
+<script src="{{asset('assets/global/plugins/jquery-repeater/jquery.repeater.js')}}" type="text/javascript"></script>
+<script src="{{asset('assets/pages/scripts/form-repeater.js')}}" type="text/javascript"></script>
 <!-- BEGIN PAGE HEAD-->
 <div class="page-head">
     <!-- BEGIN PAGE TITLE -->
@@ -40,14 +42,14 @@
         </div>
     </div>
     <div class="portlet-body form">
-        <form role="form" enctype="multipart/form-data" method="post">
+        <form role="form" enctype="multipart/form-data" method="post" action="{{route('profiles.store')}}">
           @csrf
             <div class="form-body">
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group form-md-line-input has-success form-md-floating-label">
                             <div class="input-icon">
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" name="nama">
                                 <label for="form_control_1">Nama Bisnis</label>
                                 <i class="fa fa-users"></i>
                             </div>
@@ -56,7 +58,7 @@
                     <div class="col-md-4">
                       <div class="form-group form-md-line-input has-success form-md-floating-label">
                           <div class="input-icon">
-                              <input type="text" class="form-control">
+                              <input type="text" class="form-control" name="lokasi">
                               <label for="form_control_1">Lokasi</label>
                               <i class="fa fa-location-arrow"></i>
                           </div>
@@ -65,7 +67,7 @@
                     <div class="col-md-4">
                       <div class="form-group form-md-line-input has-success form-md-floating-label">
                           <div class="input-icon">
-                              <input type="text" class="form-control">
+                              <input type="text" class="form-control" name="pendapatan">
                               <label for="form_control_1">Pendapatan bulan terakhir</label>
                               <i class="fa fa-money"></i>
                           </div>
@@ -83,6 +85,32 @@
                       <input type="file" name="" value="fotobisnis">
                       <label for="form_control_1">Foto</label>
                   </div>
+                </div>
+                <div class="form-group form-md-line-input has-success form-md-floating-label mt-repeater">
+                    <div data-repeater-list="anggota">
+                      <div data-repeater-item class="mt-repeater-item">
+                        <div class="row mt-repeater-row">
+                            <div class="col-md-5">
+                                <label class="control-label">Nama Anggota</label>
+                                <input type="text" placeholder="Nama lengkap anggota" class="form-control" name="anggota" autocomplete="off"/> </div>
+                            <div class="col-md-3">
+                                <label class="control-label">Angkatan</label>
+                                <input type="text" placeholder="Angkatan" class="form-control" name="angkatan" autocomplete="off"/>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label">Instansi</label>
+                                <input type="text" placeholder="Instansi" class="form-control" name="instansi" autocomplete="off"/>
+                            </div>
+                            <div class="col-md-1">
+                                <a href="javascript:;" data-repeater-delete class="btn btn-danger mt-repeater-delete">
+                                    <i class="fa fa-close"></i>
+                                </a>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                    <a href="javascript:;" data-repeater-create class="btn btn-info mt-repeater-add">
+                        <i class="fa fa-plus"></i> Add Anggota</a>
                 </div>
                 <div class="form-actions noborder">
                     <button type="submit" class="btn blue">Submit</button>

@@ -72,19 +72,7 @@
                             <th>Action</th>
                         </tr>
                     </tfoot>
-                    <tbody>
-                      <tr>
-                          <td>Tiger Nixon</td>
-                          <td>PNJ</td>
-                          <td>2018</td>
-                          <td>08124182461</td>
-                          <td>
-                            <a href="#" class="btn btn-icon-only blue"><i class="fa fa-info"></i> </a>
-                            <a href="#" class="btn btn-icon-only default"><i class="fa fa-gear"></i> </a>
-                            <a href="#" class="btn btn-icon-only red"><i class="fa fa-times"></i> </a>
-                          </td>
-                      </tr>
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>
@@ -133,7 +121,7 @@
                       </div>
                   </div>
                     <div class="form-actions noborder text-center">
-                        <button id="submit" type="submit" class="btn blue">Submit</button>
+                        <button onclick="saveData()" type="submit" class="btn blue">Submit</button>
                         <!-- <button type="button" class="btn default">Cancel</button> -->
                     </div>
                 </div>

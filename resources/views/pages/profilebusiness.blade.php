@@ -53,13 +53,13 @@
                 <div class="tools"> </div>
             </div>
             <div class="portlet-body">
-                <table class="table table-striped table-bordered table-hover" id="sample_1">
+                <table class="table table-striped table-bordered table-hover" id="myTable">
                     <thead>
                         <tr>
                             <th>Nama</th>
                             <th>Lokasi</th>
                             <th>Pendapatan</th>
-                            <th>Action</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -67,21 +67,10 @@
                             <th>Nama</th>
                             <th>Lokasi</th>
                             <th>Pendapatan</th>
-                            <th>Action</th>
+                            <th></th>
                         </tr>
                     </tfoot>
-                    <tbody>
-                      <tr>
-                          <td>System Architect</td>
-                          <td>Beji</td>
-                          <td>12000</td>
-                          <td>
-                            <a href="#" class="btn btn-icon-only blue"><i class="fa fa-info"></i> </a>
-                            <a href="#" class="btn btn-icon-only default"><i class="fa fa-gear"></i> </a>
-                            <a href="#" class="btn btn-icon-only red"><i class="fa fa-times"></i> </a>
-                          </td>
-                      </tr>
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>
@@ -89,5 +78,36 @@
     </div>
 </div>
 <!-- END PAGE BASE CONTENT -->
+<script type="text/javascript">
+var t = $('#myTable').DataTable({
+  'processing'  : true,
+  'serverSide'  : true,
+  'ajax'        : "{{ route('api.bisni') }}",
+  'dataType'    : 'json',
+  'paging'      : true,
+  'lengthChange': true,
+  'columns'     : [
 
+    {data:'nama', name: 'nama'},
+    {data:'lokasi', name: 'lokasi'},
+    {data:'pendapatan', name: 'pendapatan'},
+    {data:'aksi', name: 'aksi', orderable: false, searchable: false},
+  ],
+  'buttons': [
+                { extend: 'print', className: 'btn dark btn-outline' },
+                { extend: 'copy', className: 'btn red btn-outline' },
+                { extend: 'pdf', className: 'btn green btn-outline' },
+                { extend: 'excel', className: 'btn yellow btn-outline ' },
+                { extend: 'csv', className: 'btn purple btn-outline ' },
+                { extend: 'colvis', className: 'btn dark btn-outline', text: 'Columns'}
+            ],
+  'info'        : true,
+  'autoWidth'   : false
+});
+
+function info(id){
+  url = "{{url('bip/profiles/detail/')}}"+"/"+id
+  window.location.replace(url);
+}
+</script>
 @endsection

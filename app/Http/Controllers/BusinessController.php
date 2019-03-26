@@ -3,6 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\DataTables;
+
+use App\Anggota;
+use App\Bisnis;
+use App\Activity;
 
 class BusinessController extends Controller
 {
@@ -42,7 +48,23 @@ class BusinessController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = [
+          'nama' => $request['nama'],
+          'lokasi' => $request['lokasi'],
+          'pendapatan' => $request['pendapatan'],
+          'penjelasan' => $request['penjelasan'],
+        ];
+        Bisnis::create($data);
+        $bisnis = Bisnis::orderBy('id','desc')->first();
+        for ($i=0; $i < count($request['anggota']); $i++) {
+          $data=[
+            'nama' => $request['anggota'][$i]['anggota'],
+            'angkatan' => $request['anggota'][$i]['angkatan'],
+            'instansi' => $request['anggota'][$i]['instansi'],
+            'businesses_id' => $bisnis->id
+          ];
+          Anggota::create($data);
+        }
     }
 
     /**
@@ -95,5 +117,51 @@ class BusinessController extends Controller
       return view('pages/userdatabip',[
         'sidebar' => 'bipuserdata'
       ]);
+    }
+
+    public function apiBisnis()
+    {
+      $bisnis = Bisnis::all();
+
+      return DataTables::of($bisnis)
+        ->addColumn('aksi',function($bisnis) {
+          return '<a onclick="info('.$bisnis->id.')" class="btn btn-icon-only blue"><i class="fa fa-info"></i> </a>'.' '.
+          '<a onclick="detail('.$bisnis->id.')" class="btn btn-icon-only default"><i class="fa fa-gear"></i></a>'.' '.
+          '<a onclick="delete('.$bisnis->id.')" class="btn btn-icon-only red"><i class="fa fa-times"></i> </a>';
+      })->escapeColumns([])->make(true);
+    }
+
+    public function detail($id)
+    {
+      $anggota = DB::table('bisnis')
+                ->leftjoin('anggotas','anggotas.businesses_id','=','bisnis.id')
+                ->select('anggotas.nama','anggotas.angkatan')
+                ->where('bisnis.id', $id)
+                ->get();
+      $info = DB::table('bisnis')
+              ->where('id',$id)->get();
+      $act = DB::table('bisnis')
+                ->leftjoin('activities','activities.businesses_id','=','bisnis.id')
+                ->select('activities.*')
+                ->where('bisnis.id', $id)
+                ->get();
+      return view('pages/detail',[
+        'sidebar' => 'bipprofilebusiness',
+        'info' => $info,
+        'anggota' => $anggota,
+        'activities' => $act
+      ]);
+    }
+
+    public function storeActivity(Request $request)
+    {
+      $data = [
+        'judul' => $request['judul'],
+        'tanggal' => $request['tanggal'],
+        'isi' => $request['isi'],
+        'businesses_id' => $request['bisnisId'],
+      ];
+      Activity::create($data);
+      // return $data;
     }
 }
