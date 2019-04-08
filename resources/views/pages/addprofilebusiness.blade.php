@@ -90,9 +90,13 @@
                     <div data-repeater-list="anggota">
                       <div data-repeater-item class="mt-repeater-item">
                         <div class="row mt-repeater-row">
-                            <div class="col-md-5">
+                            <div class="col-md-3">
                                 <label class="control-label">Nama Anggota</label>
-                                <input type="text" placeholder="Nama lengkap anggota" class="form-control" name="anggota" autocomplete="off"/> </div>
+                                <input type="text" placeholder="Nama Lengkap Anggota" class="form-control" name="anggota" autocomplete="off"/> </div>
+                            <div class="col-md-3">
+                                <label class="control-label">Jenis Kelamin</label>
+                                <input type="text" placeholder="Jenis Kelamin" class="form-control" name="kelamin" autocomplete="off"/>
+                            </div>
                             <div class="col-md-3">
                                 <label class="control-label">Angkatan</label>
                                 <input type="text" placeholder="Angkatan" class="form-control" name="angkatan" autocomplete="off"/>
@@ -100,6 +104,26 @@
                             <div class="col-md-3">
                                 <label class="control-label">Instansi</label>
                                 <input type="text" placeholder="Instansi" class="form-control" name="instansi" autocomplete="off"/>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label">Email</label>
+                                <input type="text" placeholder="Email" class="form-control" name="email" autocomplete="off"/>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label">Phone</label>
+                                <input type="text" placeholder="Phone" class="form-control" name="phone" autocomplete="off"/>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label">Instagram</label>
+                                <input type="text" placeholder="Instagram" class="form-control" name="instagram" autocomplete="off"/>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label">Facebook</label>
+                                <input type="text" placeholder="Facebook" class="form-control" name="facebook" autocomplete="off"/>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label">Twitter</label>
+                                <input type="text" placeholder="Twitter" class="form-control" name="twitter" autocomplete="off"/>
                             </div>
                             <div class="col-md-1">
                                 <a href="javascript:;" data-repeater-delete class="btn btn-danger mt-repeater-delete">

@@ -1,6 +1,8 @@
 @extends('layouts.main')
 @section('content')
 
+<script src="{{asset('assets/global/plugins/jquery-repeater/jquery.repeater.js')}}" type="text/javascript"></script>
+<script src="{{asset('assets/pages/scripts/form-repeater.js')}}" type="text/javascript"></script>
 <meta name="csrf_token" content="{{ csrf_token() }}">
 <!-- BEGIN PAGE CSS -->
 <link href="{{asset('assets/global/plugins/datatables/datatables.min.css')}}" rel="stylesheet" type="text/css" />
@@ -14,12 +16,11 @@
 <script src="{{asset('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/pages/scripts/table-datatables-buttons.min.js')}}" type="text/javascript"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
-<!-- END ADDITIONAL JS -->
 <!-- BEGIN PAGE HEAD-->
 <div class="page-head">
     <!-- BEGIN PAGE TITLE -->
     <div class="page-title">
-        <h1>BIP Admin | Make it User Data
+        <h1>BIP Admin | Pembinaan
             <small>statistics, charts and reports</small>
         </h1>
     </div>
@@ -33,38 +34,39 @@
         <i class="fa fa-circle"></i>
     </li>
     <li>
-        <span class="active">Make it</span>
+        <span class="active">BIP</span>
         <i class="fa fa-circle"></i>
     </li>
     <li>
-        <span class="active">User Data</span>
+        <span class="active">Pembinaan</span>
     </li>
 </ul>
 <!-- END PAGE BREADCRUMB -->
-<!-- BEGIN PAGE BASE CONTENT -->
 <div class="row">
     <div class="col-md-12">
-      <a onclick="tambahData();" class="btn btn-primary btn-flat">
+        <a onclick="tambahData();" class="btn btn-primary btn-flat">
         <i class="fa fa-plus"></i> Tambah Data
       </a>
+      <!-- <a href="{{url('bip/profiles/create')}}" class="btn btn-primary btn-flat"><i class="fa fa-plus"></i> Tambah Data</a> -->
       <p></p>
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-settings font-dark"></i>
-                    <span class="caption-subject bold uppercase">User Data Make it</span>
+                    <span class="caption-subject bold uppercase">Data Mentah</span>
                 </div>
                 <div class="tools"> </div>
             </div>
             <div class="portlet-body">
-                <table class="table table-striped table-bordered table-hover" id="t">
+                <table class="table table-striped table-bordered table-hover" id="mentah">
                     <thead>
                         <tr>
                             <th>Nama</th>
-                            <th>Email</th>
-                            <th>Instansi</th>
+                            <th>Kelas</th>
+                            <th>Jurusan</th>
                             <th>Phone</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -75,7 +77,8 @@
         <!-- END EXAMPLE TABLE PORTLET-->
     </div>
 </div>
-<!-- modal -->
+<!-- END PAGE BASE CONTENT -->
+
 <div class="modal fade" id="myModal-form" tabindex="-1" role="basic" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -111,6 +114,27 @@
                   </div>
                   <div class="form-group form-md-line-input has-success form-md-floating-label">
                       <div class="input-icon">
+                          <input id="angkatan" type="text" class="form-control" name="angkatan">
+                          <label for="form_control_1">Angkatan</label>
+                          <i class="fa fa-plus"></i>
+                      </div>
+                  </div>
+                  <div class="form-group form-md-line-input has-success form-md-floating-label">
+                      <div class="input-icon">
+                          <input id="jurusan" type="text" class="form-control" name="jurusan">
+                          <label for="form_control_1">Jurusan</label>
+                          <i class="fa fa-newspaper-o"></i>
+                      </div>
+                  </div>
+                  <div class="form-group form-md-line-input has-success form-md-floating-label">
+                      <div class="input-icon">
+                          <input id="kelas" type="text" class="form-control" name="kelas">
+                          <label for="form_control_1">Kelas</label>
+                          <i class="fa fa-newspaper-o"></i>
+                      </div>
+                  </div>
+                  <div class="form-group form-md-line-input has-success form-md-floating-label">
+                      <div class="input-icon">
                           <input id="email" type="text" class="form-control" name="email">
                           <label for="form_control_1">Email</label>
                           <i class="fa fa-newspaper-o"></i>
@@ -132,24 +156,91 @@
                   </div>
                   <div class="form-group form-md-line-input has-success form-md-floating-label">
                       <div class="input-icon">
-                          <input id="instagram" type="text" class="form-control" name="instagram">
-                          <label for="form_control_1">Instagram</label>
+                          <input id="kelompok" type="text" class="form-control" name="kelompok">
+                          <label for="form_control_1">Kelompok</label>
                           <i class="fa fa-circle"></i>
                       </div>
                   </div>
                   <div class="form-group form-md-line-input has-success form-md-floating-label">
                       <div class="input-icon">
-                          <input id="facebook" type="text" class="form-control" name="facebook">
-                          <label for="form_control_1">Facebook</label>
+                          <input id="pic" type="text" class="form-control" name="pic">
+                          <label for="form_control_1">PIC</label>
                           <i class="fa fa-circle"></i>
                       </div>
                   </div>
                   <div class="form-group form-md-line-input has-success form-md-floating-label">
                       <div class="input-icon">
-                          <input id="twitter" type="text" class="form-control" name="twitter">
-                          <label for="form_control_1">Twitter</label>
+                          <input id="interest" type="text" class="form-control" name="interest">
+                          <label for="form_control_1">Interest</label>
                           <i class="fa fa-circle"></i>
                       </div>
+                  </div>
+                  <div class="form-group form-md-line-input has-success form-md-floating-label">
+                      <div class="input-icon">
+                          <input id="tindakan" type="text" class="form-control" name="tindakan">
+                          <label for="form_control_1">Tindakan</label>
+                          <i class="fa fa-circle"></i>
+                      </div>
+                  </div>
+                  <div class="form-group form-md-line-input has-success form-md-floating-label">
+                      <div class="input-icon">
+                          <input id="murabbi" type="text" class="form-control" name="murabbi">
+                          <label for="form_control_1">Pembina</label>
+                          <i class="fa fa-circle"></i>
+                      </div>
+                  </div>
+                  <div class="form-group form-md-line-input has-success form-md-floating-label">
+                      <div class="input-icon">
+                          <input id="liqo" type="text" class="form-control" name="liqo">
+                          <label for="form_control_1">Liqo</label>
+                          <i class="fa fa-circle"></i>
+                      </div>
+                  </div>
+                  <div class="form-group form-md-line-input has-success form-md-floating-label">
+                      <div class="input-icon">
+                          <input id="bisnis" type="text" class="form-control" name="bisnis">
+                          <label for="form_control_1">Bisnis</label>
+                          <i class="fa fa-briefcase"></i>
+                      </div>
+                  </div>
+                  <div class="form-group form-md-line-input has-success form-md-floating-label">
+                      <div class="input-icon">
+                          <input id="pemahaman" type="text" class="form-control" name="pemahaman">
+                          <label for="form_control_1">Pemahaman</label>
+                          <i class="fa fa-plus"></i>
+                      </div>
+                  </div>
+                  <div class="form-group form-md-line-input has-success form-md-floating-label">
+                      <div class="input-icon">
+                          <input id="keterlibatan" type="text" class="form-control" name="keterlibatan">
+                          <label for="form_control_1">Keterlibatan</label>
+                          <i class="fa fa-plus"></i>
+                      </div>
+                  </div>
+                  <div class="form-group form-md-line-input has-success form-md-floating-label">
+                      <div class="input-icon">
+                          <input id="penugasan" type="text" class="form-control" name="penugasan">
+                          <label for="form_control_1">Penugasan</label>
+                          <i class="fa fa-briefcase"></i>
+                      </div>
+                  </div>
+                  <div class="form-group form-md-line-input has-success form-md-floating-label">
+                      <div class="input-icon">
+                          <input id="proyeksi" type="text" class="form-control" name="proyeksi">
+                          <label for="form_control_1">Proyeksi</label>
+                          <i class="fa fa-briefcase"></i>
+                      </div>
+                  </div>
+                  <div class="form-group form-md-line-input has-success form-md-floating-label">
+                    <label for="form_control_1">Kategori</label>
+                    <select name="status" id="status" class="form-control" required>
+                        <option value="">-Pilih-</option>
+                        <option value="1">Data Mentah</option>
+                        <option value="2">Draft</option>
+                        <option value="3">Karantina</option>
+                        <option value="4">Aktif</option>
+
+                    </select>
                   </div>
                     <button id="submit" class="btn btn-default">Submit</button>
                 </div>
@@ -165,14 +256,13 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
-<!-- /.modal -->
-<!-- END PAGE BASE CONTENT -->
 
+<!-- END PAGE BASE CONTENT -->
 <script type="text/javascript">
-  var table = $('#t').DataTable({
+  var table = $('#mentah').DataTable({
             'processing': true,
             'serverSide': true,
-            'ajax' : "{{route('apimakeit') }}",
+            'ajax' : "{{route('apipembinaan') }}",
             'dataType' : 'JSON',
             'paging' : true,
             'lengthChange': true, 
@@ -186,6 +276,8 @@
             'info': true,
             'autoWidth': false
   });
+
+
 
   function tambahData(){
     save_method = 'add';
@@ -203,7 +295,7 @@
     $('#myModal-form form')[0].reset();
 
     $.ajax({
-      url: "{{ url('makeit') }}" + '/' + id + "/edit",
+      url: "{{ url('pembinaan') }}" + '/' + id + "/edit",
       type: "GET",
       dataType: "JSON",
       success: function(data) {
@@ -214,12 +306,24 @@
         $('#nama').val(data.nama);
         $('#kelamin').val(data.kelamin);
         $('#umur').val(data.umur);
+        $('#angkatan').val(data.angkatan);
+        $('#jurusan').val(data.jurusan);
+        $('#kelas').val(data.kelas);
         $('#email').val(data.email);
         $('#instansi').val(data.instansi);
         $('#no_telp').val(data.no_telp);
-        $('#instagram').val(data.instagram);
-        $('#facebook').val(data.facebook);
-        $('#twitter').val(data.twitter);
+        $('#kelompok').val(data.kelompok);
+        $('#pic').val(data.pic);
+        $('#interest').val(data.interest);
+        $('#tindakan').val(data.tindakan);
+        $('#murabbi').val(data.murabbi);
+        $('#liqo').val(data.liqo);
+        $('#bisnis').val(data.bisnis);
+        $('#pemahaman').val(data.pemahaman);
+        $('#keterlibatan').val(data.keterlibatan);
+        $('#penugasan').val(data.penugasan);
+        $('#proyeksi').val(data.proyeksi);
+        $('#status').val(data.status);
       },
 
       error :  function() {
@@ -233,7 +337,7 @@
     var csrf_token = $('meta[name="csrf_token"]').attr('content');
     if (popup  == true){
       $.ajax({
-        url : "{{ url('makeit') }}" + '/' + id,
+        url : "{{ url('pembinaan') }}" + '/' + id,
         type : "POST",
         data : {'_method' : 'DELETE', '_token' : csrf_token},
         success: function(data){
@@ -250,8 +354,8 @@
   $('#submit').click(function(e){
       e.preventDefault();
       var id = $('#id').val();
-      if (save_method=='add') url ="{{url('makeit') }}";
-      else url = "{{ url('makeit') . '/' }}" + id;
+      if (save_method=='add') url ="{{url('pembinaan/datamentah/store') }}";
+      else url = "{{ url('pembinaan') . '/' }}" + id;
 
       $.ajax({
         url : url,

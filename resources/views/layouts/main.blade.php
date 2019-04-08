@@ -182,6 +182,35 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-item {{ (\Request::route()->getName() == 'pembinaan') ? 'active open' : ''}}">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="icon-key"></i>
+                                <span class="title">Pembinaan</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li class="nav-item {{ ($sidebar == 'mentahuserdata') ? 'active open' : ''}} ">
+                                    <a href="{{url('pembinaan/datamentah')}}" class="nav-link ">
+                                        <span class="title">Data Mentah</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item {{ ($sidebar == 'draftuserdata') ? 'active open' : ''}} ">
+                                    <a href="{{url('pembinaan/draft')}}" class="nav-link ">
+                                        <span class="title">Draft</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item {{ ($sidebar == 'karantinauserdata') ? 'active open' : ''}} ">
+                                    <a href="{{url('pembinaan/karantina')}}" class="nav-link ">
+                                        <span class="title">Karantina</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item {{ ($sidebar == 'aktifuserdata') ? 'active open' : ''}} ">
+                                    <a href="{{url('pembinaan/aktif')}}" class="nav-link ">
+                                        <span class="title">Aktif</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                     <!-- END SIDEBAR MENU -->
                 </div>

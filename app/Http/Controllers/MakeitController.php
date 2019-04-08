@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
-
-use App\Makeit;
+use App\MakeIt;
 
 class MakeitController extends Controller
 {
@@ -43,7 +42,20 @@ class MakeitController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = [
+            'nama' => $request['nama'],
+            'kelamin' => $request['kelamin'],
+            'umur' => $request['umur'],
+            'email' => $request['email'],
+            'instansi' => $request['instansi'],
+            'no_telp' => $request['no_telp'],
+            'instagram' => $request['instagram'],
+            'facebook' => $request['facebook'],
+            'twitter' => $request['twitter']
+        ];
+        
+        MakeIt::create($data);
+        return redirect('makeit');
     }
 
     /**
@@ -65,8 +77,10 @@ class MakeitController extends Controller
      */
     public function edit($id)
     {
-        //
+        $makeit = MakeIt::find($id);
+        return $makeit;
     }
+    
 
     /**
      * Update the specified resource in storage.
@@ -77,7 +91,20 @@ class MakeitController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $makeit = MakeIt::find($id);
+        $makeit->nama = $request['nama'];
+        $makeit->kelamin = $request['kelamin'];
+        $makeit->umur = $request['umur'];
+        $makeit->email = $request['email'];
+        $makeit->instansi = $request['instansi'];
+        $makeit->no_telp = $request['no_telp'];
+        $makeit->instagram = $request['instagram'];
+        $makeit->facebook = $request['facebook'];
+        $makeit->twitter = $request['twitter'];
+        $makeit->update();
+
+        // return $makeit;
+        // return Redirect::route('makeit.index');
     }
 
     /**
@@ -88,17 +115,18 @@ class MakeitController extends Controller
      */
     public function destroy($id)
     {
-        //
+        MakeIt::destroy($id);
+        
     }
-
+    
     public function apimakeit()
     {
-      $makeit = Makeit::all();
-
-      return DataTables::of($makeit)
-        ->addColumn('aksi',function($makeit) {
-          return '<a onclick="editData('.$makeit->id.')" class="btn btn-info btn-xs">Edit</a>'.' '.
-          '<a onclick="deleteData('.$makeit->id.')"class="btn btn-danger btn-xs">Delete</a>';
-      })->escapeColumns([])->make(true);
+        $makeit = Makeit::all();
+        return DataTables::of($makeit)
+        ->addColumn('aksi', function($makeit){
+            return '<a onclick="editData('.$makeit->id.')" class="btn btn-info btn-xs">Edit</a>'.''.
+            '<a onclick="deleteData('.$makeit->id.')"class="btn btn-danger btn-xs">Delete</a>';
+        })->escapeColumns([])->make(true);
     }
-}
+}   
+
