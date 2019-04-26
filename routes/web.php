@@ -25,6 +25,8 @@ Route::post('/pembinaan/datamentah/store', 'PembinaanController@store')->name('p
 
 Route::get('/pembinaan/draft', 'PembinaanController@draft')->name('pembinaan');
 
+//Route::get('/pembinaan/draft', 'PembinaanController@draft')->name('pembinaan');
+
 Route::get('/pembinaan/karantina', 'PembinaanController@karantina')->name('pembinaan');
 
 Route::get('/pembinaan/aktif', 'PembinaanController@aktif')->name('pembinaan');

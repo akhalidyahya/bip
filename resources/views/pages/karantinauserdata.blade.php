@@ -60,10 +60,8 @@
                             <th>Nama</th>
                             <th>Jurusan</th>
                             <th>Phone</th>
-                            <th>PIC</th>
                             <th>Murabbi</th>
                             <th>Kondisi Liqo</th>
-                            <th>Kondisi Bisnis</th>
                             <th>Pemahaman</th>
                             <th>Keterlibatan</th>
                             <th>Action</th>
@@ -76,8 +74,6 @@
                           <td>085643216789</td>
                           <td>Sal</td>
                           <td>Sallll</td>
-                          <td>...</td>
-                          <td>...</td>
                           <td>...</td>
                           <td>...</td>
                           <td>

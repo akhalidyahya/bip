@@ -64,7 +64,8 @@ class PembinaanController extends Controller
             'keterlibatan' => $request['keterlibatan'],
             'penugasan' => $request['penugasan'],
             'proyeksi' => $request['proyeksi'],
-            'status' => $request['status']
+            'status' => $request['status'],
+            'kolam' => $request['kolam']
         ];
 
         
@@ -127,6 +128,7 @@ class PembinaanController extends Controller
         $pembinaan->penugasan = $request['penugasan'];
         $pembinaan->proyeksi = $request['proyeksi'];
         $pembinaan->status = $request['status'];
+        $pembinaan->kolam = $request['kolam'];
         $pembinaan->update();
     }
 
@@ -148,30 +150,35 @@ class PembinaanController extends Controller
         return DataTables::of($pembinaan)
         ->addColumn('aksi', function($pembinaan){
             return '<a onclick="editData('.$pembinaan->id.')" class="btn btn-info btn-xs">Edit</a>'.''.
-            '<a onclick="deleteData('.$pembinaan->id.')"class="btn btn-danger btn-xs">Delete</a>';
+            '<a onclick="deleteData('.$pembinaan->id.')"class="btn btn-danger btn-xs">Delete</a>'.''.
+            /*'<a onclick="prosesData('.$pembinaan->id.')"class="icon-arrow-right"> </a>'*/
+            '
+                <select id="myDropdown">
+                    <option value="2">Draft</option>
+                    <option value="3">Karantina</option>
+                    <option value="4">Aktif</option>
+                </select>
+         ';
         })->escapeColumns([])->make(true);
     }
 
     public function draft()
     {
-    	/**$pembinaan = DB::table('pembinaans')
-    				->select('pembinaans.nama', 'pembinaans.kelas', 'pembinaans.jurusan', 'pembinaans.no_telp', 'pembinaans.kelompok', 'pembinaans.pic', 'pembinaans.interest', 'pembinaans.tindakan')
-    				->where('pembinaans.id', $id)
-    				->get();
-    	$info = DB::table('pembinaans')
-              ->where('id', $id)->get();*/
+    	
     	return view('pages/draftuserdata',[
-          'sidebar' => 'draftuserdata',
-          /*'info' => $info,
-          'pembinaan' => $pembinaan*/
+          'sidebar' => 'draftuserdata'
         ]);
     }
 
-    public function apidraft()
+    /*public function apidraft($pembinaans)
     {
-    	$pembinaan = DB::table('pembinaans')
-    				->select('pembinaans.nama', 'pembinaans.kelas', 'pembinaans.jurusan', 'pembinaans.no_telp', 'pembinaans.kelompok', 'pembinaans.pic', 'pembinaans.interest', 'pembinaans.tindakan')
-    				->where('pembinaans.status', $status)
+    	$pembinaan = Pembinaan::all();
+
+      return view('pages/draftuserdata',[
+        'pembinaan'=>$pembinaan]);
+      DB::table('pembinaans')
+    				->select('nama', 'kelas', 'jurusan', 'no_telp', 'kolam', 'status')
+    				->where('status', 2)
     				->get();
     	$info = DB::table('pembinaans')
               ->where('status', $status)->get();
@@ -180,7 +187,7 @@ class PembinaanController extends Controller
           'info' => $info,
           'pembinaan' => $pembinaan
       ]);
-    }
+    }*/
 
     public function karantina()
     {

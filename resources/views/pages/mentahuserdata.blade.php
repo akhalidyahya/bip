@@ -1,6 +1,7 @@
 @extends('layouts.main')
 @section('content')
 
+
 <script src="{{asset('assets/global/plugins/jquery-repeater/jquery.repeater.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/pages/scripts/form-repeater.js')}}" type="text/javascript"></script>
 <meta name="csrf_token" content="{{ csrf_token() }}">
@@ -16,6 +17,7 @@
 <script src="{{asset('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/pages/scripts/table-datatables-buttons.min.js')}}" type="text/javascript"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+
 <!-- BEGIN PAGE HEAD-->
 <div class="page-head">
     <!-- BEGIN PAGE TITLE -->
@@ -54,9 +56,14 @@
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-settings font-dark"></i>
-                    <span class="caption-subject bold uppercase">Data Mentah</span>
+                    <span class="caption-subject bold uppercase">Pendataan</span>
                 </div>
-                <div class="tools"> </div>
+                <div class="tools">
+                </div>
+                <a class="btn btn purple btn-outline" style="float: right;margin-right: 10px">Komunitas</a>
+                <a class="btn btn yellow btn-outline" style="float: right;margin-right: 10px">Workshop</a>
+                <a class="btn btn green btn-outline" style="float: right;margin-right: 10px">KOPIKIR</a>
+                <a class="btn btn red btn-outline" style="float: right;margin-right: 10px">BIP</a>
             </div>
             <div class="portlet-body">
                 <table class="table table-striped table-bordered table-hover" id="mentah">
@@ -235,11 +242,20 @@
                     <label for="form_control_1">Kategori</label>
                     <select name="status" id="status" class="form-control" required>
                         <option value="">-Pilih-</option>
-                        <option value="1">Data Mentah</option>
+                        <option value="1">Pendataan</option>
                         <option value="2">Draft</option>
                         <option value="3">Karantina</option>
                         <option value="4">Aktif</option>
-
+                    </select>
+                  </div>
+                   <div class="form-group form-md-line-input has-success form-md-floating-label">
+                    <label for="form_control_1">Kolam</label>
+                    <select name="kolam" id="kolam" class="form-control" required>
+                        <option value="">-Pilih-</option>
+                        <option value="bip">BIP</option>
+                        <option value="kopikir">KOPIKIR</option>
+                        <option value="workshop">Workshop</option>
+                        <option value="komunitas">Komunitas</option>
                     </select>
                   </div>
                     <button id="submit" class="btn btn-default">Submit</button>
@@ -324,6 +340,7 @@
         $('#penugasan').val(data.penugasan);
         $('#proyeksi').val(data.proyeksi);
         $('#status').val(data.status);
+        $('#kolam').val(data.kolam);
       },
 
       error :  function() {
@@ -377,5 +394,22 @@
   function close(){
     mywindow.close();
   }
+
+  function myFunction() {
+      document.getElementById("myDropdown").classList.toggle("show");
+  }
+
+  window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
 </script>
 @endsection

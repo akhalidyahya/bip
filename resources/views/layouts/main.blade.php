@@ -191,7 +191,7 @@
                             <ul class="sub-menu">
                                 <li class="nav-item {{ ($sidebar == 'mentahuserdata') ? 'active open' : ''}} ">
                                     <a href="{{url('pembinaan/datamentah')}}" class="nav-link ">
-                                        <span class="title">Data Mentah</span>
+                                        <span class="title">Pendataan</span>
                                     </a>
                                 </li>
                                 <li class="nav-item {{ ($sidebar == 'draftuserdata') ? 'active open' : ''}} ">

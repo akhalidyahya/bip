@@ -62,10 +62,8 @@
                             <th>Kelas</th>
                             <th>Jurusan</th>
                             <th>Phone</th>
-                            <th>Kelompok</th>
-                            <th>PIC</th>
-                            <th>Interest</th>
-                            <th>Tindakan</th>
+                            <th>Kolam</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>

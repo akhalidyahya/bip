@@ -37,6 +37,7 @@ class CreatePembinaansTable extends Migration
             $table->string('keterlibatan')->nullable();
             $table->string('penugasan')->nullable();
             $table->string('proyeksi')->nullable();
+            $table->string('kolam')->nullable();
         });
     }
 

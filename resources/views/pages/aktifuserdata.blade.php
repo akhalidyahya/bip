@@ -60,11 +60,8 @@
                             <th>Nama</th>
                             <th>Jurusan</th>
                             <th>Phone</th>
-                            <th>PIC</th>
                             <th>Murabbi</th>
-                            <th>Keterlibatan</th>
-                            <th>Penugasan</th>
-                            <th>Proyeksi</th>
+                            <th>Tingkatan</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -74,10 +71,6 @@
                           <td>TIK</td>
                           <td>085643216789</td>
                           <td>Sal</td>
-                          <td>Sallll</td>
-                          <td>...</td>
-                          <td>...</td>
-                          <td>...</td>
                           <td>
                             <a href="#" class="btn btn-icon-only blue"><i class="fa fa-info"></i> </a>
                             <a href="#" class="btn btn-icon-only default"><i class="fa fa-gear"></i> </a>
