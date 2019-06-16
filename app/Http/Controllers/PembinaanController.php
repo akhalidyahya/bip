@@ -143,7 +143,112 @@ class PembinaanController extends Controller
         Pembinaan::destroy($id);
         
     }
+
+    //DRAFT
+    public function pindahDraft($id){
+        $pembinaan = DB::table('pembinaans')->where('id',$id)->update(['status'=>'2']);
+        return redirect('pembinaan/draft');
+    }
+
+    public function apiDraft(){
+      $pembinaan = DB::table('pembinaans')->where('status','2')->orderBy('created_at','asc');
+
+      return DataTables::of($pembinaan)
+            ->addColumn('aksi',function($pembinaan) {
+              return '
+            <div class="btn-group">
+            <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="true">Pindah
+            <i class="fa fa-angle-down"></i>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li>
+                <a href="pindah/'.$pembinaan->id.'/status-2"> Draft
+                </a>
+              </li>
+              <li>
+                <a href="pindah/'.$pembinaan->id.'/status-3"> Karantina
+                </a>
+              </li>
+              <li>
+                <a href="pindah/'.$pembinaan->id.'/status-4"> Aktif
+                </a>
+              </li>
+            </ul>
+          </div>'
+          ;
+          })->escapeColumns([])->make(true);
+    }
     
+    //KARANTINA
+    public function pindahKarantina($id){
+      $pembinaan = DB::table('pembinaans')->where('id',$id)->update(['status'=>'3']);
+        return redirect('pembinaan/karantina');
+    }
+
+    public function apiKarantina(){
+      $pembinaan = DB::table('pembinaans')->where('status','3')->orderBy('created_at','asc');
+
+      return DataTables::of($pembinaan)
+            ->addColumn('aksi',function($pembinaan) {
+              return '
+            <div class="btn-group">
+            <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="true">Pindah
+            <i class="fa fa-angle-down"></i>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li>
+                <a href="pindah/'.$pembinaan->id.'/status-2"> Draft
+                </a>
+              </li>
+              <li>
+                <a href="pindah/'.$pembinaan->id.'/status-3"> Karantina
+                </a>
+              </li>
+              <li>
+                <a href="pindah/'.$pembinaan->id.'/status-4"> Aktif
+                </a>
+              </li>
+            </ul>
+          </div>'
+          ;
+          })->escapeColumns([])->make(true);
+    }
+
+    //AKTIF
+    public function pindahAktif($id){
+      $pembinaan = DB::table('pembinaans')->where('id',$id)->update(['status'=>'4']);
+        return redirect('pembinaan/aktif');
+    }
+    public function apiAktif(){
+      $pembinaan = DB::table('pembinaans')->where('status','4')->orderBy('created_at','asc');
+
+      return DataTables::of($pembinaan)
+            ->addColumn('aksi',function($pembinaan) {
+              return '
+            <div class="btn-group">
+            <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="true">Pindah
+            <i class="fa fa-angle-down"></i>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li>
+                <a href="pindah/'.$pembinaan->id.'/status-2"> Draft
+                </a>
+              </li>
+              <li>
+                <a href="pindah/'.$pembinaan->id.'/status-3"> Karantina
+                </a>
+              </li>
+              <li>
+                <a href="pindah/'.$pembinaan->id.'/status-4"> Aktif
+                </a>
+              </li>
+            </ul>
+          </div>'
+          ;
+          })->escapeColumns([])->make(true);
+    }
+
+
     public function apipembinaan()
     {
         $pembinaan = Pembinaan::all();
@@ -152,13 +257,25 @@ class PembinaanController extends Controller
             return '<a onclick="editData('.$pembinaan->id.')" class="btn btn-info btn-xs">Edit</a>'.''.
             '<a onclick="deleteData('.$pembinaan->id.')"class="btn btn-danger btn-xs">Delete</a>'.''.
             /*'<a onclick="prosesData('.$pembinaan->id.')"class="icon-arrow-right"> </a>'*/
-            '
-                <select id="myDropdown">
-                    <option value="2">Draft</option>
-                    <option value="3">Karantina</option>
-                    <option value="4">Aktif</option>
-                </select>
-         ';
+            '<div class="btn-group">
+            <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="true">Pindah
+            <i class="fa fa-angle-down"></i>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li>
+                <a href="pindah/'.$pembinaan->id.'/status-2"> Draft
+                </a>
+              </li>
+              <li>
+                <a href="pindah/'.$pembinaan->id.'/status-3"> Karantina
+                </a>
+              </li>
+              <li>
+                <a href="pindah/'.$pembinaan->id.'/status-4"> Aktif
+                </a>
+              </li>
+            </ul>
+          </div>';
         })->escapeColumns([])->make(true);
     }
 
@@ -170,52 +287,18 @@ class PembinaanController extends Controller
         ]);
     }
 
-    /*public function apidraft($pembinaans)
-    {
-    	$pembinaan = Pembinaan::all();
-
-      return view('pages/draftuserdata',[
-        'pembinaan'=>$pembinaan]);
-      DB::table('pembinaans')
-    				->select('nama', 'kelas', 'jurusan', 'no_telp', 'kolam', 'status')
-    				->where('status', 2)
-    				->get();
-    	$info = DB::table('pembinaans')
-              ->where('status', $status)->get();
-          return view('pages/draftuserdata',[
-          'sidebar' => 'draftuserdata',
-          'info' => $info,
-          'pembinaan' => $pembinaan
-      ]);
-    }*/
-
     public function karantina()
     {
-    	/**$pembinaan = DB::table('pembinaans')
-    				->select('pembinaans.nama', 'pembinaans.jurusan', 'pembinaans.no_telp', 'pembinaans.pic', 'pembinaans.murabbi', 'pembinaans.liqo', 'pembinaans.bisnis', 'pembinaans.pemahaman', 'pembinaans.keterlibatan')
-    				->where('pembinaans.id', $id)
-    				->get();
-    	$info = DB::table('pembinaans')
-              ->where('id', $id)->get();**/
     	return view('pages/karantinauserdata',[
-          'sidebar' => 'karantinauserdata',
-          /**'info' => $info,
-          'pembinaan' => $pembinaan*/
+          'sidebar' => 'karantinauserdata'
         ]);
     }
 
     public function aktif()
     {
-    	/**$pembinaan = DB::table('pembinaans')
-    				->select('pembinaans.nama', 'pembinaans.jurusan', 'pembinaans.no_telp', 'pembinaans.pic', 'pembinaans.murabbi', 'pembinaans.keterlibatan', 'pembinaans.penugasan', 'pembinaans.proyeksi')
-    				->where('pembinaans.id', $id)
-    				->get();
-    	$info = DB::table('pembinaans')
-              ->where('id', $id)->get();*/
+
     	return view('pages/aktifuserdata',[
           'sidebar' => 'aktifuserdata'
-          /*'info' => $info,
-          'pembinaan' => $pembinaan*/
         ]);
     }
 }   

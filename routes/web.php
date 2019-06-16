@@ -18,32 +18,35 @@ Route::get('/', function () {
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
 Route::get('/makeit', 'MakeitController@index')->name('makeit.index');
+Route::get('api/makeit', 'MakeitController@apimakeit')->name('apimakeit');
+Route::post('api/makeit/update', 'MakeitController@update')->name('makeit.update');
+
 
 Route::get('/pembinaan/datamentah', 'PembinaanController@index')->name('pembinaan.index');
-
 Route::post('/pembinaan/datamentah/store', 'PembinaanController@store')->name('pembinaan.store');
-
-Route::get('/pembinaan/draft', 'PembinaanController@draft')->name('pembinaan');
-
-//Route::get('/pembinaan/draft', 'PembinaanController@draft')->name('pembinaan');
-
-Route::get('/pembinaan/karantina', 'PembinaanController@karantina')->name('pembinaan');
-
-Route::get('/pembinaan/aktif', 'PembinaanController@aktif')->name('pembinaan');
-
-Route::get('api/makeit', 'MakeitController@apimakeit')->name('apimakeit');
-
 Route::get('api/pembinaan', 'PembinaanController@apipembinaan')->name('apipembinaan');
 
-Route::post('api/makeit/update', 'MakeitController@update')->name('makeit.update');
+
+Route::get('/pembinaan/draft', 'PembinaanController@draft')->name('pembinaan');
+Route::get('/pembinaan/karantina', 'PembinaanController@karantina')->name('pembinaan');
+Route::get('/pembinaan/aktif', 'PembinaanController@aktif')->name('pembinaan');
+
+Route::get('/pembinaan/draft','PembinaanController@draft')->name('pembinaan.status2');
+Route::get('/pembinaan/karantina','PembinaanController@karantina')->name('pembinaan.status3');
+Route::get('/pembinaan/aktif','PembinaanController@aktif')->name('pembinaan.status4');
+
+Route::get('/pembinaan/pindah/{id}/status-2', 'PembinaanController@pindahDraft');
+Route::get('/pembinaan/pindah/{id}/status-3', 'PembinaanController@pindahKarantina');
+Route::get('/pembinaan/pindah/{id}/status-4', 'PembinaanController@pindahAktif');
+
+Route::get('/api/draft/status-2','PembinaanController@apiDraft')->name('api.draft.2');
+Route::get('/api/karantina/status-3','PembinaanController@apiKarantina')->name('api.karantina.3');
+Route::get('/api/aktif/status-4','PembinaanController@apiAktif')->name('api.aktif.4');
 
 Auth::routes(['register' => false]);
 Route::get('logout', 'Auth\LoginController@logout', function () {
     return abort(404);
 });
-
-Route::get('pembinaan/draft/{id}','PembinaanController@draft')->name('pembinaan');
-
 
 Route::prefix('bip')->group(function(){
   Route::get('profiles/detail/{id}','BusinessController@detail')->name('bip');

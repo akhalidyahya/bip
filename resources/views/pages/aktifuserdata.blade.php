@@ -61,22 +61,11 @@
                             <th>Jurusan</th>
                             <th>Phone</th>
                             <th>Murabbi</th>
-                            <th>Tingkatan</th>
+                            <th>Kategori</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                          <td>Tiger Nixon</td>
-                          <td>TIK</td>
-                          <td>085643216789</td>
-                          <td>Sal</td>
-                          <td>
-                            <a href="#" class="btn btn-icon-only blue"><i class="fa fa-info"></i> </a>
-                            <a href="#" class="btn btn-icon-only default"><i class="fa fa-gear"></i> </a>
-                            <a href="#" class="btn btn-icon-only red"><i class="fa fa-times"></i> </a>
-                          </td>
-                      </tr>
                     </tbody>
                 </table>
             </div>
@@ -84,4 +73,37 @@
         <!-- END EXAMPLE TABLE PORTLET-->
     </div>
 </div>
+<!-- END PAGE BASE CONTENT -->
+<script type="text/javascript">
+function pindah(){
+  save_method = 'add';
+  $('input[name=_method]').val('POST');
+  $('#myModal').modal('show');
+  $('#myModal form')[0].reset();
+  $('.modal-title').text('Pindah');
+  return alert('x');
+}
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+});
+var t = $('#aktif').DataTable({
+  'processing'  : true,
+  'serverSide'  : true,
+  'ajax'        : "{{ route('api.aktif.4') }}",
+  'dataType'    : 'JSON',
+  'paging'      : true,
+  'lengthChange': true,
+  'columns'     : [
+    {data:'nama', name: 'nama'},    
+    {data:'jurusan', name: 'jurusan'},
+    {data:'no_telp', name: 'no_telp'},
+    {data:'murabbi', name: 'murabbi'}, 
+    {data:'status', name:'status'},
+    {data:'aksi', name: 'aksi'},        
+  ],
+  'info'        : true,
+  'autoWidth'   : true,
+  'responsive'  :  true
+});
+</script>
 @endsection

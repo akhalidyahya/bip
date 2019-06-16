@@ -63,7 +63,7 @@
                             <th>Jurusan</th>
                             <th>Phone</th>
                             <th>Kolam</th>
-                            <th>Status</th>
+                            <th>Kategori</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -76,4 +76,38 @@
     </div>
 </div>
 <!-- END PAGE BASE CONTENT -->
+<script type="text/javascript">
+function pindah(){
+  save_method = 'add';
+  $('input[name=_method]').val('POST');
+  $('#myModal').modal('show');
+  $('#myModal form')[0].reset();
+  $('.modal-title').text('Pindah');
+  return alert('x');
+}
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+});
+var table = $('#draft').DataTable({
+  'processing'  : true,
+  'serverSide'  : true,
+  'ajax'        : "{{ route('api.draft.2') }}",
+  'dataType'    : 'JSON',
+  'paging'      : true,
+  'lengthChange': true,
+  'columns'     : [
+    {data:'nama', name: 'nama'},   
+    {data:'kelas', name: 'kelas'},    
+    {data:'jurusan', name: 'jurusan'},
+    {data:'no_telp', name: 'no_telp'},    
+    {data:'kolam', name: 'kolam'},
+    {data:'status', name:'status'},
+    {data:'aksi', name: 'aksi'},        
+  ],
+  'info'        : true,
+  'autoWidth'   : true,
+  'responsive'  :  true
+});
+</script>
+
 @endsection

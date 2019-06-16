@@ -60,11 +60,12 @@
                 </div>
                 <div class="tools">
                 </div>
-                <a class="btn btn purple btn-outline" style="float: right;margin-right: 10px">Komunitas</a>
-                <a class="btn btn yellow btn-outline" style="float: right;margin-right: 10px">Workshop</a>
-                <a class="btn btn green btn-outline" style="float: right;margin-right: 10px">KOPIKIR</a>
-                <a class="btn btn red btn-outline" style="float: right;margin-right: 10px">BIP</a>
-            </div>
+                <a id="komunitas" class="btn btn purple btn-outline" style="float: right;margin-right: 10px">Komunitas</a>
+                <a id="workshop" class="btn btn yellow btn-outline" style="float: right;margin-right: 10px">Workshop</a>
+                <a id="kopikir" class="btn btn green btn-outline" style="float: right;margin-right: 10px">KOPIKIR</a>
+                <a id="bip" class="btn btn red btn-outline" style="float: right;margin-right: 10px">BIP</a>
+                <a id="all" class="btn btn dark btn-outline" style="float: right;margin-right: 10px">View All</a>
+              </div>
             <div class="portlet-body">
                 <table class="table table-striped table-bordered table-hover" id="mentah">
                     <thead>
@@ -73,6 +74,8 @@
                             <th>Kelas</th>
                             <th>Jurusan</th>
                             <th>Phone</th>
+                            <th>Kategori</th>
+                            <th>Kolam</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -275,6 +278,27 @@
 
 <!-- END PAGE BASE CONTENT -->
 <script type="text/javascript">
+
+$("#bip").click(function () {
+    var rows = $("#mentah").find("tr").hide();
+    rows.filter(":contains('bip')").show();
+ });
+
+$("#kopikir").click(function () {
+    var rows = $("#mentah").find("tr").hide();
+    rows.filter(":contains('kopikir')").show();
+ });
+
+$("#workshop").click(function () {
+    var rows = $("#mentah").find("tr").hide();
+    rows.filter(":contains('workshop')").show();
+ });
+
+$("#komunitas").click(function () {
+    var rows = $("#mentah").find("tr").hide();
+    rows.filter(":contains('komunitas')").show();
+ });
+
   var table = $('#mentah').DataTable({
             'processing': true,
             'serverSide': true,
@@ -287,13 +311,17 @@
             {data: 'email', name: 'email'},
             {data: 'instansi', name: 'instansi'},
             {data: 'no_telp', name: 'no_telp'},
+            {data: 'status', name: 'status'},
+            {data: 'kolam', name: 'kolam'},
             {data: 'aksi', name: 'aksi', orderable: false, searchable: false}
             ],
             'info': true,
             'autoWidth': false
   });
 
-
+$("#all").click(function () {
+    var rows = $("#mentah").find("tr").show();
+ });
 
   function tambahData(){
     save_method = 'add';
@@ -390,26 +418,11 @@
     
   });
 
+
+
   var mywindow;
   function close(){
     mywindow.close();
   }
-
-  function myFunction() {
-      document.getElementById("myDropdown").classList.toggle("show");
-  }
-
-  window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
 </script>
 @endsection
