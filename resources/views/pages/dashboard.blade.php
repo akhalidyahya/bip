@@ -27,12 +27,12 @@
     <div class="col-md-3">
         <!-- BEGIN WIDGET THUMB -->
         <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
-            <h4 class="widget-thumb-heading">Current Balance</h4>
+            <h4 class="widget-thumb-heading">Pendataan</h4>
             <div class="widget-thumb-wrap">
                 <i class="widget-thumb-icon bg-green icon-bulb"></i>
                 <div class="widget-thumb-body">
-                    <span class="widget-thumb-subtitle">USD</span>
-                    <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">0</span>
+                    <span class="widget-thumb-subtitle">Jumlah</span>
+                    <span class="widget-thumb-body-stat" data-counter="counterup" data-value="100">0</span>
                 </div>
             </div>
         </div>
@@ -41,12 +41,12 @@
     <div class="col-md-3">
         <!-- BEGIN WIDGET THUMB -->
         <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
-            <h4 class="widget-thumb-heading">Weekly Sales</h4>
+            <h4 class="widget-thumb-heading">Draft</h4>
             <div class="widget-thumb-wrap">
                 <i class="widget-thumb-icon bg-red icon-layers"></i>
                 <div class="widget-thumb-body">
-                    <span class="widget-thumb-subtitle">USD</span>
-                    <span class="widget-thumb-body-stat" data-counter="counterup" data-value="1,293">0</span>
+                    <span class="widget-thumb-subtitle">Jumlah</span>
+                    <span class="widget-thumb-body-stat" data-counter="counterup" data-value="80">0</span>
                 </div>
             </div>
         </div>
@@ -55,12 +55,12 @@
     <div class="col-md-3">
         <!-- BEGIN WIDGET THUMB -->
         <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
-            <h4 class="widget-thumb-heading">Biggest Purchase</h4>
+            <h4 class="widget-thumb-heading">Karantina</h4>
             <div class="widget-thumb-wrap">
                 <i class="widget-thumb-icon bg-purple icon-screen-desktop"></i>
                 <div class="widget-thumb-body">
-                    <span class="widget-thumb-subtitle">USD</span>
-                    <span class="widget-thumb-body-stat" data-counter="counterup" data-value="815">0</span>
+                    <span class="widget-thumb-subtitle">Jumlah</span>
+                    <span class="widget-thumb-body-stat" data-counter="counterup" data-value="60">0</span>
                 </div>
             </div>
         </div>
@@ -69,12 +69,12 @@
     <div class="col-md-3">
         <!-- BEGIN WIDGET THUMB -->
         <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
-            <h4 class="widget-thumb-heading">Average Monthly</h4>
+            <h4 class="widget-thumb-heading">Aktif</h4>
             <div class="widget-thumb-wrap">
                 <i class="widget-thumb-icon bg-blue icon-bar-chart"></i>
                 <div class="widget-thumb-body">
-                    <span class="widget-thumb-subtitle">USD</span>
-                    <span class="widget-thumb-body-stat" data-counter="counterup" data-value="5,071">0</span>
+                    <span class="widget-thumb-subtitle">Jumlah</span>
+                    <span class="widget-thumb-body-stat" data-counter="counterup" data-value="50">0</span>
                 </div>
             </div>
         </div>
