@@ -116,7 +116,6 @@ class MakeitController extends Controller
     public function destroy($id)
     {
         MakeIt::destroy($id);
-        
     }
     
     public function apimakeit()
