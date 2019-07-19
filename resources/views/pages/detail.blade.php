@@ -99,71 +99,95 @@
             </div>
         </div>
         <!-- END EXAMPLE TABLE PORTLET-->
-        <div class="row">
-          <div class="col-lg-12 col-xs-12 col-sm-12">
-                <div class="portlet light portlet-fit bordered">
-                    <div class="portlet-title">
-                        <div class="caption">
-                            <i class="icon-directions font-green hide"></i>
-                            <span class="caption-subject bold font-dark uppercase "> Activities</span>
-                            <span class="caption-helper">Horizontal Timeline</span>
-                        </div>
-                    </div>
-                    <div class="portlet-body">
-                        <div class="cd-horizontal-timeline mt-timeline-horizontal loaded" data-spacing="60">
-                            <div class="timeline">
-                                <div class="events-wrapper">
-                                    <div class="events" style="width: 1800px;">
-                                        <ol>
-                                            @foreach($activities as $data)
-                                            <li>
-                                                <a href="#0" data-date="{{$data->tanggal}}" class="border-after-red bg-after-red selected" style="left: 120px;">{{$data->tanggal}}</a>
-                                            </li>
-                                            @endforeach
-                                        </ol>
-                                        <span class="filling-line bg-red" aria-hidden="true" style="transform: scaleX(0.0763889);"></span>
-                                    </div>
-                                    <!-- .events -->
-                                </div>
-                                <!-- .events-wrapper -->
-                                <ul class="cd-timeline-navigation mt-ht-nav-icon">
-                                    <li>
-                                        <a href="#0" class="prev inactive btn btn-outline red md-skip">
-                                            <i class="fa fa-chevron-left"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#0" class="next btn btn-outline red md-skip">
-                                            <i class="fa fa-chevron-right"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <!-- .cd-timeline-navigation -->
-                            </div>
-                            <!-- .timeline -->
-                            <div class="events-content">
-                                <ol>
-                                    @foreach($activities as $data)
-                                    <li class="selected" data-date="{{$data->tanggal}}">
-                                        <div class="mt-title">
-                                            <h2 class="mt-content-title">{{$data->judul}}</h2>
-                                        </div>
-                                        <div class="mt-author">
-                                            <div class="mt-author-datetime font-grey-mint">{{$data->tanggal}}</div>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                        <div class="mt-content border-grey-steel">
-                                            <p>{{$data->isi}}</p>
-                                        </div>
-                                    </li>
-                                    @endforeach
-                                </ol>
-                            </div>
-                            <!-- .events-content -->
-                        </div>
-                    </div>
+        <div class="portlet light portlet-fit bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-directions font-green hide"></i>
+                    <span class="caption-subject bold font-dark uppercase "> Activities</span>
+                    <span class="caption-helper">Horizontal Timeline</span>
                 </div>
             </div>
+            <div class="portlet-body">
+                <div class="cd-horizontal-timeline mt-timeline-horizontal" data-spacing="60">
+                    <div class="timeline">
+                        <div class="events-wrapper">
+                            <div class="events">
+                                <ol>
+                                    @php
+                                        $i = 0;
+                                    @endphp
+                                    @foreach($activities as $data)
+                                    <li>
+                                        <a href="#0" data-date="{{date('d/m/Y', strtotime($data->tanggal))}}" class="border-after-red bg-after-red @if( $i == 0 ) selected @endif">{{date('d F', strtotime($data->tanggal))}}</a>
+                                    </li>
+                                    @php
+                                        $i++;
+                                    @endphp
+                                    @endforeach
+                                </ol>
+                                <span class="filling-line bg-red" aria-hidden="true"></span>
+                            </div>
+                            <!-- .events -->
+                        </div>
+                        <!-- .events-wrapper -->
+                        <ul class="cd-timeline-navigation mt-ht-nav-icon">
+                            <li>
+                                <a href="#0" class="prev inactive btn btn-outline red md-skip">
+                                    <i class="fa fa-chevron-left"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#0" class="next btn btn-outline red md-skip">
+                                    <i class="fa fa-chevron-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- .cd-timeline-navigation -->
+                    </div>
+                    <!-- .timeline -->
+                    <div class="events-content">
+                        <ol>
+                            @php
+                                $i = 0;
+                            @endphp
+                            @foreach($activities as $data)
+                            <li @if( $i == 0 ) class="selected" @endif data-date="{{date('d/m/Y', strtotime($data->tanggal))}}">
+                                <div class="mt-title">
+                                    <h2 class="mt-content-title">{{$data->judul}}</h2>
+                                </div>
+                                <div class="mt-author">
+                                    <div class="mt-author-name">
+                                        <a href="javascript:;" class="font-blue-madison">{{$data->penulis}}</a>
+                                    </div>
+                                    <div class="mt-author-datetime font-grey-mint">{{date('d M Y H:i:s', strtotime($data->tanggal))}}</div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="mt-content border-grey-steel">
+                                    <p>{{$data->isi}}</p>
+                                    <a href="javascript:;" class="btn btn-circle red btn-outline">Read More</a>
+                                    <a href="javascript:;" class="btn btn-circle btn-icon-only blue">
+                                        <i class="fa fa-plus"></i>
+                                    </a>
+                                </div>
+                            </li>
+                            @php
+                                $i++;
+                            @endphp
+                            @endforeach
+                        </ol>
+                    </div>
+                    <!-- .events-content -->
+                </div>
+            </div>
+            <!-- <script>
+                $(document).ready(function(){
+                    jQuery('.timeline').timeline({
+                        mode: 'horizontal',  //tipe timeline horizontal atau vertical
+                        visibleItems: 5 //jumlah data dalam timeline
+                    });
+                });
+
+                </script> -->
         </div>
     </div>
 </div>
@@ -195,6 +219,9 @@
                           </div>
                       </div>
                   </div>
+                    <script type="text/javascript">
+                        $(".form_datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii:ss'});
+                    </script>       
                   <div class="form-group form-md-line-input has-success form-md-floating-label">
                       <div class="input-icon">
                           <input id="judul" type="text" class="form-control" name="judul">
@@ -207,6 +234,13 @@
                         <textarea class="form-control" rows="5" name="isi" id="isi"></textarea>
                         <label for="form_control_1">Isi</label>
                     </div>
+                  </div>   
+                  <div class="form-group form-md-line-input has-success form-md-floating-label">
+                      <div class="input-icon">
+                          <input id="penulis" type="text" class="form-control" name="penulis">
+                          <label for="form_control_1">Penanggung Jawab</label>
+                          <i class="fa fa-user"></i>
+                      </div>
                   </div>
                     <div class="form-actions noborder text-center">
                         <button id="submit" class="btn blue">Submit</button>
@@ -253,6 +287,7 @@ $('#submit').click(function(e){
       $('#myModal').modal('hide');
       if (save_method=='add') {
         alert('data added');
+        location.reload();
       } else {
         alert('data updated');
       }

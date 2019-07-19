@@ -13,7 +13,7 @@ class UpdateTableMakeit2 extends Migration
      */
     public function up()
     {
-        Schema::table('makeits', function (Blueprint $table) {
+        Schema::table('make_its', function (Blueprint $table) {
             $table->timestamps();
         });
     }

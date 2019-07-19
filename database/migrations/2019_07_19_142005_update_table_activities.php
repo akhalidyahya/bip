@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateTableMakeit3 extends Migration
+class UpdateTableActivities extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class UpdateTableMakeit3 extends Migration
      */
     public function up()
     {
-        Schema::table('make_its', function (Blueprint $table) {
-            $table->increments('id');
-
+        Schema::table('activities', function (Blueprint $table) {
+            $table->string('penulis', 500)->change();
         });
     }
 
@@ -26,6 +25,8 @@ class UpdateTableMakeit3 extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('activities', function (Blueprint $table) {
+            //
+        });
     }
 }
