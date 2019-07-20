@@ -42,6 +42,8 @@
 <div class="row">
     <div class="col-md-12">
       <a href="{{url('bip/profiles/create')}}" class="btn btn-primary btn-flat"><i class="fa fa-plus"></i> Tambah Data</a>
+      <a href="{{route('business.export')}}" class="btn btn-primary btn-flat"><i class="fa fa-download"></i> Export Data Bisnis</a>
+      
       <p></p>
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
         <div class="portlet light bordered">
@@ -56,8 +58,8 @@
                 <table class="table table-striped table-bordered table-hover" id="myTable">
                     <thead>
                         <tr>
-                            <th>Nama</th>
-                            <th>Lokasi</th>
+                            <th>Nama Bisnis</th>
+                            <th>Lokasi Bisnis</th>
                             <th>Pendapatan</th>
                             <th></th>
                         </tr>
@@ -108,6 +110,27 @@ var t = $('#myTable').DataTable({
 function info(id){
   url = "{{url('bip/profiles/detail/')}}"+"/"+id
   window.location.replace(url);
+}
+
+</script>
+<script type="text/javascript">
+function deleteData(id) {
+  var popup = confirm("Apakah ingin hapus data?");
+  var csrf_token = $('meta[name="csrf-token"]').attr('content');
+  if(popup == true) {
+    $.ajax({
+      url: "{{ url('bip/profiles') }}" + '/' + id,
+      type: "POST",
+      data: {'_method': 'DELETE','_token': csrf_token},
+      success: function(data) {
+        alert('data deleted');
+        t.ajax.reload();
+      },
+      error: function(){
+        alert("something went wrong!");
+      }
+    });
+  }
 }
 </script>
 @endsection

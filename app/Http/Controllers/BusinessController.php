@@ -7,8 +7,12 @@ use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 
 use App\Anggota;
+use App\pembinaan;
 use App\Bisnis;
 use App\Activity;
+
+use Excel;
+// use DB;
 
 class BusinessController extends Controller
 {
@@ -60,11 +64,18 @@ class BusinessController extends Controller
           $data=[
             'nama' => $request['anggota'][$i]['anggota'],
             'angkatan' => $request['anggota'][$i]['angkatan'],
+            'kelamin' => $request['anggota'][$i]['kelamin'],
             'instansi' => $request['anggota'][$i]['instansi'],
+            'email' => $request['anggota'][$i]['email'],
+            'no_telp' => $request['anggota'][$i]['phone'],
+            'status' => 1,
             'businesses_id' => $bisnis->id
           ];
-          Anggota::create($data);
+          pembinaan::create($data);
         }
+
+        return redirect('bip/profiles');
+        // return $data;
     }
 
     /**
@@ -109,7 +120,7 @@ class BusinessController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Bisnis::destroy($id);
     }
 
     public function userdata()
@@ -126,16 +137,16 @@ class BusinessController extends Controller
       return DataTables::of($bisnis)
         ->addColumn('aksi',function($bisnis) {
           return '<a onclick="info('.$bisnis->id.')" class="btn btn-icon-only blue"><i class="fa fa-info"></i> </a>'.' '.
-          '<a onclick="detail('.$bisnis->id.')" class="btn btn-icon-only default"><i class="fa fa-gear"></i></a>'.' '.
-          '<a onclick="delete('.$bisnis->id.')" class="btn btn-icon-only red"><i class="fa fa-times"></i> </a>';
+          // '<a onclick="detail('.$bisnis->id.')" class="btn btn-icon-only default"><i class="fa fa-gear"></i></a>'.' '.
+          '<a onclick="deleteData('.$bisnis->id.')" class="btn btn-icon-only red"><i class="fa fa-times"></i> </a>';
       })->escapeColumns([])->make(true);
     }
 
     public function detail($id)
     {
       $anggota = DB::table('bisnis')
-                ->leftjoin('anggotas','anggotas.businesses_id','=','bisnis.id')
-                ->select('anggotas.nama','anggotas.angkatan')
+                ->leftjoin('pembinaans','pembinaans.businesses_id','=','bisnis.id')
+                ->select('pembinaans.nama','pembinaans.angkatan')
                 ->where('bisnis.id', $id)
                 ->get();
       $info = DB::table('bisnis')
@@ -159,9 +170,23 @@ class BusinessController extends Controller
         'judul' => $request['judul'],
         'tanggal' => $request['tanggal'],
         'isi' => $request['isi'],
+        'pendapatan' => $request['pendapatan'],
         'businesses_id' => $request['bisnisId'],
       ];
       Activity::create($data);
       // return $data;
+    }
+
+    public function export(){
+      $data = Bisnis::all();
+
+      $table = array_map( function($data){
+          return (array) $data;
+      },$data->toArray());
+      return Excel::create('List Kelompok Bisnis',function($excel) use ($table){
+        $excel->sheet('sheet1',function($sheet) use($table){
+          $sheet->fromArray($table);
+        });
+      })->download('csv');
     }
 }

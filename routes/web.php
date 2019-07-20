@@ -49,6 +49,7 @@ Route::get('logout', 'Auth\LoginController@logout', function () {
 });
 
 Route::prefix('bip')->group(function(){
+  Route::get('export','BusinessController@export')->name('business.export');
   Route::get('profiles/detail/{id}','BusinessController@detail')->name('bip');
   Route::post('profiles/detail/activity/store','BusinessController@storeActivity');
   Route::get('userdata','BusinessController@userdata')->name('bip');
@@ -57,6 +58,8 @@ Route::prefix('bip')->group(function(){
     'create' => 'bip',
   ]]);
 });
+
+Route::get('anggota/export','PembinaanController@export')->name('anggota.export');
 
 Route::resource('makeit','MakeitController',['names'=>[
   'index'=>'makeit'
@@ -67,3 +70,4 @@ Route::resource('pembinaan','PembinaanController',['names'=>[
 ]]);
 
 Route::get('api/bisnis','BusinessController@apiBisnis')->name('api.bisni');
+// Route::get('api/userdatabip','PembinaanController@apiUserdataBip')->name('api.userdata.bip');

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 use App\Pembinaan;
+use Auth;
+use Excel;
 
 class PembinaanController extends Controller
 {
@@ -20,6 +22,9 @@ class PembinaanController extends Controller
      */
     public function index()
     {
+        if (Auth::user()->role !== 'ikhwah') {
+          return redirect('dashboard');
+        }
         return view('pages/mentahuserdata',[
           'sidebar' => 'mentahuserdata'
         ]);
@@ -68,7 +73,7 @@ class PembinaanController extends Controller
             'kolam' => $request['kolam']
         ];
 
-        
+
         Pembinaan::create($data);
         return redirect('pembinaan/datamentah');
     }
@@ -81,7 +86,7 @@ class PembinaanController extends Controller
      */
     public function show($id)
     {
-          
+
     }
 
     /**
@@ -95,7 +100,7 @@ class PembinaanController extends Controller
         $pembinaan = Pembinaan::find($id);
         return $pembinaan;
     }
-    
+
 
     /**
      * Update the specified resource in storage.
@@ -141,7 +146,7 @@ class PembinaanController extends Controller
     public function destroy($id)
     {
         Pembinaan::destroy($id);
-        
+
     }
 
     //DRAFT
@@ -178,7 +183,7 @@ class PembinaanController extends Controller
           ;
           })->escapeColumns([])->make(true);
     }
-    
+
     //KARANTINA
     public function pindahKarantina($id){
       $pembinaan = DB::table('pembinaans')->where('id',$id)->update(['status'=>'3']);
@@ -217,8 +222,9 @@ class PembinaanController extends Controller
     //AKTIF
     public function pindahAktif($id){
       $pembinaan = DB::table('pembinaans')->where('id',$id)->update(['status'=>'4']);
-        return redirect('pembinaan/aktif');
+      return redirect('pembinaan/aktif');
     }
+
     public function apiAktif(){
       $pembinaan = DB::table('pembinaans')->where('status','4')->orderBy('created_at','asc');
 
@@ -281,7 +287,6 @@ class PembinaanController extends Controller
 
     public function draft()
     {
-    	
     	return view('pages/draftuserdata',[
           'sidebar' => 'draftuserdata'
         ]);
@@ -296,9 +301,23 @@ class PembinaanController extends Controller
 
     public function aktif()
     {
-
     	return view('pages/aktifuserdata',[
           'sidebar' => 'aktifuserdata'
         ]);
     }
-}   
+
+    public function export(){
+      $data = DB::table('pembinaans')
+                ->select('nama','kelamin','umur','angkatan','jurusan','kelas','no_telp','email','instansi')
+                ->get();
+
+      $table = array_map( function($data){
+          return (array) $data;
+      },$data->toArray());
+      return Excel::create('List Kelompok Anggota Bisnis',function($excel) use ($table){
+        $excel->sheet('sheet1',function($sheet) use($table){
+          $sheet->fromArray($table);
+        });
+      })->download('csv');
+    }
+}

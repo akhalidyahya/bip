@@ -59,7 +59,7 @@
                       <div class="form-group form-md-line-input has-success form-md-floating-label">
                           <div class="input-icon">
                               <input type="text" class="form-control" name="lokasi">
-                              <label for="form_control_1">Lokasi</label>
+                              <label for="form_control_1">Lokasi Bisnis</label>
                               <i class="fa fa-location-arrow"></i>
                           </div>
                       </div>
@@ -80,12 +80,12 @@
                       <label for="form_control_1">Penjelasan Bisnis</label>
                   </div>
                 </div>
-                <div class="form-group form-md-line-input has-success form-md-floating-label">
+                <!-- <div class="form-group form-md-line-input has-success form-md-floating-label">
                   <div class="form-group form-md-line-input form-md-floating-label">
                       <input type="file" name="" value="fotobisnis">
                       <label for="form_control_1">Foto</label>
                   </div>
-                </div>
+                </div> -->
                 <div class="form-group form-md-line-input has-success form-md-floating-label mt-repeater">
                     <div data-repeater-list="anggota">
                       <div data-repeater-item class="mt-repeater-item">
@@ -113,7 +113,7 @@
                                 <label class="control-label">Phone</label>
                                 <input type="text" placeholder="Phone" class="form-control" name="phone" autocomplete="off"/>
                             </div>
-                            <div class="col-md-3">
+                            <!-- <div class="col-md-3">
                                 <label class="control-label">Instagram</label>
                                 <input type="text" placeholder="Instagram" class="form-control" name="instagram" autocomplete="off"/>
                             </div>
@@ -124,7 +124,7 @@
                             <div class="col-md-3">
                                 <label class="control-label">Twitter</label>
                                 <input type="text" placeholder="Twitter" class="form-control" name="twitter" autocomplete="off"/>
-                            </div>
+                            </div> -->
                             <div class="col-md-1">
                                 <a href="javascript:;" data-repeater-delete class="btn btn-danger mt-repeater-delete">
                                     <i class="fa fa-close"></i>

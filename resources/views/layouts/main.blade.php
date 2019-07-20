@@ -8,10 +8,15 @@
 
     <head>
         <meta charset="utf-8" />
+        @if(Auth::user()->role == 'bip')
         <title>BIP | Admin</title>
+        @else
+        <title>ADP | Admin</title>
+        @endif
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="Admin page of BIP Admin Dashboard" name="description" />
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta content="" name="author" />
         <!-- BEGIN GLOBAL MANDATORY STYLES -->
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
@@ -182,6 +187,7 @@
                                 </li>
                             </ul>
                         </li>
+                        @if(Auth::user()->role == 'ikhwah')
                         <li class="nav-item {{ (\Request::route()->getName() == 'pembinaan') ? 'active open' : ''}}">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="icon-key"></i>
@@ -211,6 +217,21 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-item {{ (\Request::route()->getName() == 'pengaturan') ? 'active open' : ''}}">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="icon-wrench"></i>
+                                <span class="title">Pengaturan</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li class="nav-item {{ ($sidebar == 'kolam') ? 'active open' : ''}} ">
+                                    <a href="{{url('pengaturan/kolam')}}" class="nav-link ">
+                                        <span class="title">Kolam</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        @endif
                     </ul>
                     <!-- END SIDEBAR MENU -->
                 </div>

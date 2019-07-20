@@ -19,7 +19,7 @@
 <div class="page-head">
     <!-- BEGIN PAGE TITLE -->
     <div class="page-title">
-        <h1>BIP Admin | Pembinaan
+        <h1>ADP Admin | Pembinaan
             <small>statistics, charts and reports</small>
         </h1>
     </div>
@@ -94,12 +94,12 @@ var t = $('#aktif').DataTable({
   'paging'      : true,
   'lengthChange': true,
   'columns'     : [
-    {data:'nama', name: 'nama'},    
+    {data:'nama', name: 'nama'},
     {data:'jurusan', name: 'jurusan'},
     {data:'no_telp', name: 'no_telp'},
-    {data:'murabbi', name: 'murabbi'}, 
+    {data:'murabbi', name: 'murabbi'},
     {data:'status', name:'status'},
-    {data:'aksi', name: 'aksi'},        
+    {data:'aksi', name: 'aksi'},
   ],
   'info'        : true,
   'autoWidth'   : true,

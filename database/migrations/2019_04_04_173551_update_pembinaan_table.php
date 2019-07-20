@@ -25,6 +25,8 @@ class UpdatePembinaanTable extends Migration
             $table->string('instansi')->nullable()->change();
             $table->string('status')->nullable()->change();
             $table->string('kolam')->nullable()->change();
+            $table->string('businesses_id')->nullable()->after('kolam');
+            // $table->timestamps();
         });
     }
 

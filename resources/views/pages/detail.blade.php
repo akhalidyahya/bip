@@ -48,7 +48,7 @@
 <!-- BEGIN PAGE BASE CONTENT -->
 <div class="row">
     <div class="col-md-12">
-      <a href="{{url('bip/profiles/create')}}" class="btn btn-primary btn-flat"><i class="fa fa-wrench"></i> Edit Data</a> <a onclick="activity()" class="btn btn-primary btn-flat"><i class="fa fa-calendar"></i> Add Activities</a>
+      <a href="{{url('bip/profiles/create')}}" class="btn btn-primary btn-flat"><i class="fa fa-wrench"></i> Edit Data</a> <a onclick="activity()" class="btn btn-primary btn-flat"><i class="fa fa-calendar"></i> Add Progress</a>
       <p></p>
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
         <div class="portlet light bordered">
@@ -81,11 +81,11 @@
                       <td>:</td>
                       <td>{{$info[0]->penjelasan}}</td>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                       <td>Foto</td>
                       <td>:</td>
                       <td><img src="{{$info[0]->foto}}" alt="{{$info[0]->foto}}"> </td>
-                    </tr>
+                    </tr> -->
                     <tr>
                       <td>Anggota</td>
                       <td>:</td>
@@ -105,7 +105,7 @@
                     <div class="portlet-title">
                         <div class="caption">
                             <i class="icon-directions font-green hide"></i>
-                            <span class="caption-subject bold font-dark uppercase "> Activities</span>
+                            <span class="caption-subject bold font-dark uppercase "> Progress Bisnis</span>
                             <span class="caption-helper">Horizontal Timeline</span>
                         </div>
                     </div>
@@ -200,6 +200,13 @@
                           <input id="judul" type="text" class="form-control" name="judul">
                           <label for="form_control_1">Judul</label>
                           <i class="fa fa-newspaper-o"></i>
+                      </div>
+                  </div>
+                  <div class="form-group form-md-line-input has-success form-md-floating-label">
+                      <div class="input-icon">
+                          <input id="judul" type="text" class="form-control" name="pendapatan">
+                          <label for="form_control_1">Pendapatan</label>
+                          <i class="fa fa-money"></i>
                       </div>
                   </div>
                   <div class="form-group form-md-line-input has-success form-md-floating-label">

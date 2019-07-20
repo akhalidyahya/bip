@@ -22,7 +22,7 @@
 <div class="page-head">
     <!-- BEGIN PAGE TITLE -->
     <div class="page-title">
-        <h1>BIP Admin | Pembinaan
+        <h1>ADP Admin | Pembinaan
             <small>statistics, charts and reports</small>
         </h1>
     </div>
@@ -305,7 +305,7 @@ $("#komunitas").click(function () {
             'ajax' : "{{route('apipembinaan') }}",
             'dataType' : 'JSON',
             'paging' : true,
-            'lengthChange': true, 
+            'lengthChange': true,
             'columns': [
             {data: 'nama', name: 'nama'},
             {data: 'email', name: 'email'},
@@ -345,7 +345,7 @@ $("#all").click(function () {
       success: function(data) {
         $('#myModal-form').modal('show');
         $('.modal-title').text('Edit Data');
-      
+
         $('#id').val(data.id);
         $('#nama').val(data.nama);
         $('#kelamin').val(data.kelamin);
@@ -415,7 +415,7 @@ $("#all").click(function () {
           alert('Mohon Maaf Terjadi Kesalahan!')
        }
       });
-    
+
   });
 
 

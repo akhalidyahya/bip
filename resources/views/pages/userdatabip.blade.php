@@ -34,7 +34,7 @@
         <i class="fa fa-circle"></i>
     </li>
     <li>
-        <span class="active">User Data</span>
+        <span class="active">User Data Anggota BIP</span>
     </li>
 </ul>
 <!-- END PAGE BREADCRUMB -->
@@ -42,25 +42,32 @@
 <div class="row">
     <div class="col-md-12">
       <!-- <a href="{{url('bip/profiles/create')}}" class="btn btn-primary btn-flat"><i class="fa fa-plus"></i> Tambah Data</a> -->
+      <a href="{{route('anggota.export')}}" class="btn btn-primary btn-flat"><i class="fa fa-download"></i> Export Data Anggota</a>
       <p></p>
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-settings font-dark"></i>
-                    <span class="caption-subject bold uppercase">User Data</span>
+                    <span class="caption-subject bold uppercase">User Data Anggota BIP</span>
                 </div>
                 <div class="tools"> </div>
             </div>
             <div class="portlet-body">
-                <table class="table table-striped table-bordered table-hover" id="userdata">
+                <table class="table table-striped table-bordered table-hover" id="myTable">
                     <thead>
                         <tr>
                             <th>Nama</th>
-                            <th>Kelas</th>
+                            <th>Jenis kelamin</th>
+                            <th>Umur</th>
+                            <th>Angkatan</th>
                             <th>Jurusan</th>
-                            <th>Phone</th>
-                            <th>Action</th>
+                            <th>Kelas</th>
+                            <th>No Telpon</th>
+                            <th>Email</th>
+                            <th>Instansi</th>
+                            <th>Bisnis</th>
+                            <!-- <th>Action</th> -->
                         </tr>
                     </thead>
                     <tbody>
@@ -72,4 +79,29 @@
     </div>
 </div>
 <!-- END PAGE BASE CONTENT -->
+<script type="text/javascript">
+var t = $('#myTable').DataTable({
+  'processing'  : true,
+  'serverSide'  : true,
+  'ajax'        : "{{ route('apipembinaan') }}",
+  'dataType'    : 'json',
+  'paging'      : true,
+  'lengthChange': true,
+  'columns'     : [
+    {data:'nama', name: 'nama'},
+    {data:'kelamin', name: 'kelamin'},
+    {data:'umur', name: 'umur'},
+    {data:'angkatan', name: 'angkatan'},
+    {data:'jurusan', name: 'jurusan'},
+    {data:'kelas', name: 'kelas'},
+    {data:'no_telp', name: 'no_telp'},
+    {data:'email', name: 'email'},
+    {data:'instansi', name: 'instansi'},
+    {data:'businesses_id', name: 'businesses_id'},
+    // {data:'aksi', name: 'aksi', orderable: false, searchable: false},
+  ],
+  'info'        : true,
+  'autoWidth'   : false
+});
+</script>
 @endsection
