@@ -156,6 +156,7 @@ class BusinessController extends Controller
                 ->leftjoin('activities','activities.businesses_id','=','bisnis.id')
                 ->select('activities.*')
                 ->where('bisnis.id', $id)
+                ->orderBy("activities.tanggal")
                 ->get();
       return view('pages/detail',[
         'sidebar' => 'bipprofilebusiness',
@@ -169,12 +170,14 @@ class BusinessController extends Controller
     {
       $data = [
         'judul' => $request['judul'],
-        'tanggal' => $request['tanggal'],
+        'tanggal' => date('Y-m-d H:i:s', strtotime($request['tanggal'])),
         'isi' => $request['isi'],
         'pendapatan' => $request['pendapatan'],
         'businesses_id' => $request['bisnisId'],
+        'penulis' => $request['penulis']
       ];
       Activity::create($data);
+      // echo $data["penulis"];
       // return $data;
     }
 
