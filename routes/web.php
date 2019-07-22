@@ -78,3 +78,5 @@ Route::prefix('pengaturan')->group(function(){
 
 Route::get('api/bisnis','BusinessController@apiBisnis')->name('api.bisni');
 // Route::get('api/userdatabip','PembinaanController@apiUserdataBip')->name('api.userdata.bip');
+Route::delete('delete/activity/{id}','BusinessController@deleteActivity');
+Route::get('test/{id}','BusinessController@test');

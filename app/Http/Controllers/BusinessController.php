@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 
 use App\Anggota;
-use App\pembinaan;
+use App\Pembinaan;
 use App\Bisnis;
 use App\Activity;
 
@@ -72,7 +72,7 @@ class BusinessController extends Controller
             'kolam' => 'bip',
             'businesses_id' => $bisnis->id,
           ];
-          pembinaan::create($data);
+          Pembinaan::create($data);
         }
 
         return redirect('bip/profiles');
@@ -166,6 +166,16 @@ class BusinessController extends Controller
       ]);
     }
 
+    public function test($id){
+      $act = DB::table('bisnis')
+                ->leftjoin('activities','activities.businesses_id','=','bisnis.id')
+                ->select('activities.*')
+                ->where('bisnis.id', $id)
+                ->orderBy("activities.tanggal")
+                ->get();
+      return $act[0]->judul;
+    }
+
     public function storeActivity(Request $request)
     {
       $data = [
@@ -192,5 +202,9 @@ class BusinessController extends Controller
           $sheet->fromArray($table);
         });
       })->download('csv');
+    }
+
+    public function deleteActivity($id){
+      Activity::destroy($id);
     }
 }

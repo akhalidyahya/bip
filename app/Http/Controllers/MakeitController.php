@@ -53,7 +53,7 @@ class MakeitController extends Controller
             'facebook' => $request['facebook'],
             'twitter' => $request['twitter']
         ];
-        
+
         MakeIt::create($data);
         return redirect('makeit');
     }
@@ -80,7 +80,7 @@ class MakeitController extends Controller
         $makeit = MakeIt::find($id);
         return $makeit;
     }
-    
+
 
     /**
      * Update the specified resource in storage.
@@ -117,7 +117,7 @@ class MakeitController extends Controller
     {
         MakeIt::destroy($id);
     }
-    
+
     public function apimakeit()
     {
         $makeit = Makeit::all();
@@ -127,5 +127,4 @@ class MakeitController extends Controller
             '<a onclick="deleteData('.$makeit->id.')"class="btn btn-danger btn-xs">Delete</a>';
         })->escapeColumns([])->make(true);
     }
-}   
-
+}

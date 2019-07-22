@@ -107,8 +107,8 @@
             <div class="portlet-title">
                 <div class="caption">
                     <i class="icon-directions font-green hide"></i>
-                    <span class="caption-subject bold font-dark uppercase "> Activities</span>
-                    <span class="caption-helper">Horizontal Timeline</span>
+                    <span class="caption-subject bold font-dark uppercase "> Konsultasi</span>
+                    <span class="caption-helper">Progress bisnis</span>
                 </div>
             </div>
             <div class="portlet-body">
@@ -117,6 +117,7 @@
                         <div class="events-wrapper">
                             <div class="events">
 <!-- >>>>>>> origin/aryo100 -->
+                          @if($activities[0]->judul != NULL)
                                 <ol>
                                     @php
                                         $i = 0;
@@ -130,6 +131,8 @@
                                     @endphp
                                     @endforeach
                                 </ol>
+                                @else
+                                @endif
                                 <span class="filling-line bg-red" aria-hidden="true"></span>
                             </div>
                             <!-- .events -->
@@ -165,13 +168,13 @@
                                         <a href="javascript:;" class="font-blue-madison">{{$data->penulis}}</a>
                                     </div>
                                     <div class="mt-author-datetime font-grey-mint">{{date('d M Y H:i:s', strtotime($data->tanggal))}}</div>
+                                    <div class="mt-author-datetime font-grey-mint">Pendapatan: {{$data->pendapatan}}</div>
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="mt-content border-grey-steel">
                                     <p>{{$data->isi}}</p>
-                                    <a href="javascript:;" class="btn btn-circle red btn-outline">Read More</a>
-                                    <a href="javascript:;" class="btn btn-circle btn-icon-only blue">
-                                        <i class="fa fa-plus"></i>
+                                    <a onclick="deleteActivity({{$data->id}})" href="javascript:;" class="btn btn-circle btn-icon-only red">
+                                        <i class="fa fa-trash"></i>
                                     </a>
                                 </div>
                             </li>
@@ -184,15 +187,6 @@
                     <!-- .events-content -->
                 </div>
             </div>
-            <!-- <script>
-                $(document).ready(function(){
-                    jQuery('.timeline').timeline({
-                        mode: 'horizontal',  //tipe timeline horizontal atau vertical
-                        visibleItems: 5 //jumlah data dalam timeline
-                    });
-                });
-
-                </script> -->
         </div>
     </div>
 </div>
@@ -226,7 +220,7 @@
                   </div>
                     <script type="text/javascript">
                         $(".form_datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii:ss'});
-                    </script>       
+                    </script>
                   <div class="form-group form-md-line-input has-success form-md-floating-label">
                       <div class="input-icon">
                           <input id="judul" type="text" class="form-control" name="judul">
@@ -246,7 +240,7 @@
                         <textarea class="form-control" rows="5" name="isi" id="isi"></textarea>
                         <label for="form_control_1">Isi</label>
                     </div>
-                  </div>   
+                  </div>
                   <div class="form-group form-md-line-input has-success form-md-floating-label">
                       <div class="input-icon">
                           <input id="penulis" type="text" class="form-control" name="penulis">
@@ -279,7 +273,26 @@ function activity(){
   $('input[name=_method]').val('POST');
   $('#myModal').modal('show');
   $('#myModal form')[0].reset();
-  $('.modal-title').text('Detail Info');
+  $('.modal-title').text('Tambah Progress Bisnis');
+}
+
+function deleteActivity(id){
+  var popup = confirm("Apakah ingin hapus data?");
+    var csrf_token = $('meta[name="csrf-token"]').attr('content');
+    if(popup == true) {
+      $.ajax({
+        url: "{{ url('delete/activity') }}" + '/' + id,
+        type: "POST",
+        data: {'_method': 'DELETE','_token': csrf_token},
+        success: function(data) {
+          // t.ajax.reload();
+          location.reload();
+        },
+        error: function(){
+          alert("something went wrong!");
+        }
+      });
+    }
 }
 
 $('#submit').click(function(e){

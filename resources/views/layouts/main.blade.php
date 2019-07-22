@@ -30,8 +30,8 @@
         <link href="{{asset('assets/global/plugins/jqvmap/jqvmap/jqvmap.css')}}" rel="stylesheet" type="text/css" />
         <!-- END PAGE LEVEL PLUGINS -->
         <!-- BEGIN THEME GLOBAL STYLES -->
-        <link href="{{asset('assets/global/css/components.min.css')}}" rel="stylesheet" id="style_components" type="text/css" />
-        <link href="{{asset('assets/global/css/plugins.min.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{asset('assets/global/css/components-md.min.css')}}" rel="stylesheet" id="style_components" type="text/css" />
+        <link href="{{asset('assets/global/css/plugins-md.min.css')}}" rel="stylesheet" type="text/css" />
         <!-- END THEME GLOBAL STYLES -->
         <!-- BEGIN THEME LAYOUT STYLES -->
         <link href="{{asset('assets/layouts/layout4/css/layout.min.css')}}" rel="stylesheet" type="text/css" />
@@ -117,7 +117,6 @@
                                     <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
                                     <img alt="" class="img-circle" src="{{asset('assets/layouts/layout4/img/avatar9.jpg')}}" /> </a>
                                 <ul class="dropdown-menu dropdown-menu-default">
-
                                     <li>
                                         <a href="{{route('logout')}}">
                                             <i class="icon-key"></i> Log Out </a>
