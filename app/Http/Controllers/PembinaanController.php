@@ -8,6 +8,7 @@ use Yajra\DataTables\DataTables;
 use App\Pembinaan;
 use Auth;
 use Excel;
+use App\Kolam;
 
 class PembinaanController extends Controller
 {
@@ -26,7 +27,8 @@ class PembinaanController extends Controller
           return redirect('dashboard');
         }
         return view('pages/mentahuserdata',[
-          'sidebar' => 'mentahuserdata'
+          'sidebar' => 'mentahuserdata',
+          'kolam' => Kolam::all()
         ]);
     }
 
@@ -257,7 +259,11 @@ class PembinaanController extends Controller
 
     public function apipembinaan()
     {
-        $pembinaan = Pembinaan::all();
+        if(Auth::user()->role !== 'ikhwah') {
+          $pembinaan = Pembinaan::where('kolam','bip');
+        } else {
+          $pembinaan = Pembinaan::all();
+        }
         return DataTables::of($pembinaan)
         ->addColumn('aksi', function($pembinaan){
             return '<a onclick="editData('.$pembinaan->id.')" class="btn btn-info btn-xs">Edit</a>'.''.
@@ -308,7 +314,8 @@ class PembinaanController extends Controller
 
     public function export(){
       $data = DB::table('pembinaans')
-                ->select('nama','kelamin','umur','angkatan','jurusan','kelas','no_telp','email','instansi')
+                ->select('nama','kelamin','umur','angkatan','jurusan','kelas','no_telp','email','instansi','businesses_id')
+                ->where('kolam','=','bip')
                 ->get();
 
       $table = array_map( function($data){

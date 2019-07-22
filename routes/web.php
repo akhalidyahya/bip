@@ -12,7 +12,8 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return redirect('login');
 });
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
@@ -68,6 +69,12 @@ Route::resource('makeit','MakeitController',['names'=>[
 Route::resource('pembinaan','PembinaanController',['names'=>[
   'index'=>'pembinaan'
 ]]);
+
+Route::prefix('pengaturan')->group(function(){
+  Route::resource('kolam','KolamController',['names'=>[
+    'index' => 'pengaturan',
+  ]]);
+});
 
 Route::get('api/bisnis','BusinessController@apiBisnis')->name('api.bisni');
 // Route::get('api/userdatabip','PembinaanController@apiUserdataBip')->name('api.userdata.bip');

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 26, 2019 at 11:59 AM
+-- Generation Time: Jul 20, 2019 at 11:33 AM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -31,20 +31,13 @@ SET time_zone = "+00:00";
 CREATE TABLE `activities` (
   `id` int(10) UNSIGNED NOT NULL,
   `judul` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pendapatan` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `isi` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `tanggal` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL,
   `businesses_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `activities`
---
-
-INSERT INTO `activities` (`id`, `judul`, `isi`, `tanggal`, `businesses_id`, `created_at`, `updated_at`) VALUES
-(1, 'First Meeting', 'onclick=\"saveActivity()\"', '18 March 2019 - 22:00', 3, '2019-03-18 08:03:53', '2019-03-18 08:03:53'),
-(5, 'Second Meeting', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '19 March 2019 - 04:30', 3, '2019-03-18 14:30:49', '2019-03-18 14:30:49');
 
 -- --------------------------------------------------------
 
@@ -61,15 +54,6 @@ CREATE TABLE `anggotas` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `anggotas`
---
-
-INSERT INTO `anggotas` (`id`, `nama`, `angkatan`, `instansi`, `businesses_id`, `created_at`, `updated_at`) VALUES
-(1, 'Yahya', '2016', '', 3, '2019-03-17 23:15:28', '2019-03-17 23:15:28'),
-(2, 'Aryo', '2016', '', 3, '2019-03-17 23:15:28', '2019-03-17 23:15:28'),
-(3, 'Syauqi', '2017', '', 3, '2019-03-17 23:15:29', '2019-03-17 23:15:29');
 
 -- --------------------------------------------------------
 
@@ -93,7 +77,45 @@ CREATE TABLE `bisnis` (
 --
 
 INSERT INTO `bisnis` (`id`, `nama`, `lokasi`, `pendapatan`, `penjelasan`, `foto`, `created_at`, `updated_at`) VALUES
-(3, 'Web Dev Inc', 'Depok', '10000', 'kumpulan web developer', NULL, '2019-03-17 23:15:28', '2019-03-17 23:15:28');
+(12, 'Secure parking', 'UI', '0', 'loem ipsum dalor', NULL, '2019-07-16 12:19:34', '2019-07-16 12:19:34');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kolams`
+--
+
+CREATE TABLE `kolams` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `kategori` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `kolams`
+--
+
+INSERT INTO `kolams` (`id`, `name`, `kategori`, `created_at`, `updated_at`) VALUES
+(1, 'BIP', 'entrepreneur', '2019-07-20 07:12:59', '2019-07-20 07:12:59'),
+(3, 'Coaching Outdoor', 'riset', '2019-07-20 07:46:43', '2019-07-20 07:46:43');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `makeits`
+--
+
+CREATE TABLE `makeits` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `nama` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `no_telp` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `instansi` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -119,7 +141,13 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (5, '2019_03_18_053947_add_fk_anggota_bisnis', 4),
 (6, '2019_03_18_060649_add_table_column_bisnis', 5),
 (7, '2019_03_18_141723_create_activities_table', 6),
-(8, '2019_03_19_075417_update_table_anggotas', 7);
+(8, '2019_03_19_075417_update_table_anggotas', 7),
+(9, '2019_06_11_094825_udate_table_users', 8),
+(10, '2019_03_11_111403_create_make_its_table', 9),
+(11, '2019_04_03_144856_create_pembinaans_table', 10),
+(12, '2019_04_04_173551_update_pembinaan_table', 11),
+(13, '2019_07_20_135344_create_kolams_table', 12),
+(14, '2019_07_20_140654_update_table_kolam', 13);
 
 -- --------------------------------------------------------
 
@@ -136,6 +164,51 @@ CREATE TABLE `password_resets` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `pembinaans`
+--
+
+CREATE TABLE `pembinaans` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `nama` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `kelamin` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `umur` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `angkatan` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `jurusan` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `kelas` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `no_telp` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `instansi` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `kelompok` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `pic` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `interest` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tindakan` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `murabbi` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `liqo` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `bisnis` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `pemahaman` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `keterlibatan` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `penugasan` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `proyeksi` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `kolam` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `businesses_id` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `pembinaans`
+--
+
+INSERT INTO `pembinaans` (`id`, `created_at`, `updated_at`, `nama`, `kelamin`, `umur`, `angkatan`, `jurusan`, `kelas`, `no_telp`, `email`, `instansi`, `status`, `kelompok`, `pic`, `interest`, `tindakan`, `murabbi`, `liqo`, `bisnis`, `pemahaman`, `keterlibatan`, `penugasan`, `proyeksi`, `kolam`, `businesses_id`) VALUES
+(6, '2019-07-12 22:49:53', '2019-07-12 22:49:53', 'John doe', 'Laki-laki', NULL, '2016', NULL, NULL, '081208187293', 'john@email.com', 'PNJ', '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(8, '2019-07-16 12:19:34', '2019-07-16 12:19:34', 'a', 'a', NULL, 'a', NULL, NULL, 'a', 'aa', 'a', '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'bip', '12'),
+(9, '2019-07-16 12:19:34', '2019-07-16 12:19:34', 'b', 'b', NULL, 'b', NULL, NULL, 'b', 'bb', 'b', '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'bip', '12'),
+(10, '2019-07-16 12:21:49', '2019-07-16 12:21:49', 'c', 'c', 'c', 'cc', 'c', 'c', 'c', 'c', 'cc', '1', 'c', 'cc', 'c', 'c', 'c', 'c', 'cc', 'c', 'c', 'c', 'cc', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -147,15 +220,17 @@ CREATE TABLE `users` (
   `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `role` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(3, 'Admin BIP', 'admin@email.com', NULL, '$2y$10$sJCJjSdfFHDSj8TebHYQUuU5GuCk0Tn5AYI33nGbM5uSjWqPGlIHK', 'xrG1DPPXOtwjfCGECxoOyAWY8i2MPbdUK9QtiYOb2lnHOs8dDD9GSJepVjYB', '2019-02-13 21:04:52', '2019-02-13 21:04:52');
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `role`) VALUES
+(3, 'Admin BIP', 'admin@email.com', NULL, '$2y$10$sJCJjSdfFHDSj8TebHYQUuU5GuCk0Tn5AYI33nGbM5uSjWqPGlIHK', 'SkbnFw4Jr6LXgNyBwduDuKmJ04dVG3HN7PXnNVxFrAZzvtRfir7RxAmrayxF', '2019-02-13 21:04:52', '2019-02-13 21:04:52', 'bip'),
+(4, 'Admin ADP', 'adp@email.com', NULL, '$2y$10$sJCJjSdfFHDSj8TebHYQUuU5GuCk0Tn5AYI33nGbM5uSjWqPGlIHK', 'QShUbZDjLsNZnTK6YjYXIdlRY5pEoAe9f77hgogfdjORudCebKeJ1ZmlsKpy', '2019-02-13 21:04:52', '2019-02-13 21:04:52', 'ikhwah');
 
 --
 -- Indexes for dumped tables
@@ -182,6 +257,18 @@ ALTER TABLE `bisnis`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `kolams`
+--
+ALTER TABLE `kolams`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `makeits`
+--
+ALTER TABLE `makeits`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
@@ -192,6 +279,12 @@ ALTER TABLE `migrations`
 --
 ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
+
+--
+-- Indexes for table `pembinaans`
+--
+ALTER TABLE `pembinaans`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `users`
@@ -208,7 +301,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `activities`
 --
 ALTER TABLE `activities`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `anggotas`
@@ -220,19 +313,37 @@ ALTER TABLE `anggotas`
 -- AUTO_INCREMENT for table `bisnis`
 --
 ALTER TABLE `bisnis`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `kolams`
+--
+ALTER TABLE `kolams`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `makeits`
+--
+ALTER TABLE `makeits`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `pembinaans`
+--
+ALTER TABLE `pembinaans`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables

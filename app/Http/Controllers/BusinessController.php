@@ -69,7 +69,8 @@ class BusinessController extends Controller
             'email' => $request['anggota'][$i]['email'],
             'no_telp' => $request['anggota'][$i]['phone'],
             'status' => 1,
-            'businesses_id' => $bisnis->id
+            'kolam' => 'bip',
+            'businesses_id' => $bisnis->id,
           ];
           pembinaan::create($data);
         }

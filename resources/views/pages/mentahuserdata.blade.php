@@ -255,10 +255,9 @@
                     <label for="form_control_1">Kolam</label>
                     <select name="kolam" id="kolam" class="form-control" required>
                         <option value="">-Pilih-</option>
-                        <option value="bip">BIP</option>
-                        <option value="kopikir">KOPIKIR</option>
-                        <option value="workshop">Workshop</option>
-                        <option value="komunitas">Komunitas</option>
+                        @foreach($kolam as $data)
+                        <option value="{{$data->name}}">{{$data->name}}</option>
+                        @endforeach
                     </select>
                   </div>
                     <button id="submit" class="btn btn-default">Submit</button>
@@ -324,10 +323,11 @@ $("#all").click(function () {
  });
 
   function tambahData(){
+    $('#myModal-form').modal('show');
     save_method = 'add';
     $('input[name=_method]').val('POST');
-    $('.modal').removeClass('fade');
-    $('.modal').addClass('show');
+    // $('.modal').removeClass('fade');
+    // $('.modal').addClass('show');
     $('#myModal-form form')[0].reset();
     $('.modal-title').text('Tambah data');
 
@@ -386,6 +386,7 @@ $("#all").click(function () {
         type : "POST",
         data : {'_method' : 'DELETE', '_token' : csrf_token},
         success: function(data){
+          $('#myModal-form').modal('hide');
           table.ajax.reload();
           console.log(data);
         },
