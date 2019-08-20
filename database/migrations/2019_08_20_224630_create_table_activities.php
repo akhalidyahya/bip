@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateActivitiesTable extends Migration
+class CreateTableActivities extends Migration
 {
     /**
      * Run the migrations.
@@ -16,13 +16,12 @@ class CreateActivitiesTable extends Migration
         Schema::create('activities', function (Blueprint $table) {
             $table->increments('id');
             $table->string('judul',50);
+            $table->string('pendapatan',10);
             $table->text('isi');
-            $table->string('tanggal',25);
-            $table->unsignedInteger('businesses_id');
+            $table->string('tanggal');
+            $table->string('penulis',30);
+            $table->unsignedInteger('business_id'); //nyambung ke tabel businesses
             $table->timestamps();
-        });
-        Schema::table('activities', function (Blueprint $table) {
-            $table->foreign('businesses_id')->references('id')->on('bisnis');
         });
     }
 
@@ -33,6 +32,6 @@ class CreateActivitiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('activities');
+        Schema::dropIfExists('table_activities');
     }
 }

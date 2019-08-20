@@ -72,7 +72,7 @@
                         <tr>
                             <th>Nama</th>
                             <th>Kelas</th>
-                            <th>Jurusan</th>
+                            <th>Instansi</th>
                             <th>Phone</th>
                             <th>Kategori</th>
                             <th>Kolam</th>
@@ -131,9 +131,19 @@
                   </div>
                   <div class="form-group form-md-line-input has-success form-md-floating-label">
                       <div class="input-icon">
-                          <input id="jurusan" type="text" class="form-control" name="jurusan">
-                          <label for="form_control_1">Jurusan</label>
+                          <!--<input id="jurusan" type="text" class="form-control" name="jurusan">-->
+                          <!--<label for="form_control_1">Jurusan</label>-->
                           <i class="fa fa-newspaper-o"></i>
+                          <select class="form-control" id="jurusan" name="jurusan" required="true">
+                           <option value="" disabled="" selected=""> --Pilih Jurusan-- </option>
+                           <option value="teknik sipil">Teknik Sipil</option>
+                           <option value="teknik elektro">Teknik Elektro</option>
+                           <option value="teknik grafika dan penerbitan">Teknik Grafika dan Penerbitan</option>
+                           <option value="teknik informatika dan komputer">Teknik Informatika dan Komputer</option>
+                           <option value="akuntansi">Akuntansi</option>
+                           <option value="administrasi niaga">Administrasi Niaga</option>
+													 <!--<option value="administrasi niaga">Cevest</option>-->
+                         </select>
                       </div>
                   </div>
                   <div class="form-group form-md-line-input has-success form-md-floating-label">
@@ -299,23 +309,23 @@ $("#komunitas").click(function () {
  });
 
   var table = $('#mentah').DataTable({
-            'processing': true,
-            'serverSide': true,
-            'ajax' : "{{route('apipembinaan') }}",
-            'dataType' : 'JSON',
-            'paging' : true,
-            'lengthChange': true,
-            'columns': [
-            {data: 'nama', name: 'nama'},
-            {data: 'email', name: 'email'},
-            {data: 'instansi', name: 'instansi'},
-            {data: 'no_telp', name: 'no_telp'},
-            {data: 'status', name: 'status'},
-            {data: 'kolam', name: 'kolam'},
-            {data: 'aksi', name: 'aksi', orderable: false, searchable: false}
-            ],
-            'info': true,
-            'autoWidth': false
+    'processing': true,
+    'serverSide': true,
+    'ajax' : "{{route('apipembinaan') }}",
+    'dataType' : 'JSON',
+    'paging' : true,
+    'lengthChange': true,
+    'columns': [
+    {data: 'nama', name: 'nama'},
+    {data: 'email', name: 'email'},
+    {data: 'instansi', name: 'instansi'},
+    {data: 'no_telp', name: 'no_telp'},
+    {data: 'status', name: 'status'},
+    {data: 'kolam', name: 'kolam'},
+    {data: 'aksi', name: 'aksi', orderable: false, searchable: false}
+    ],
+    'info': true,
+    'autoWidth': false
   });
 
 $("#all").click(function () {
@@ -418,8 +428,6 @@ $("#all").click(function () {
       });
 
   });
-
-
 
   var mywindow;
   function close(){

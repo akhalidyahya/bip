@@ -72,9 +72,9 @@ class PembinaanController extends Controller
             'penugasan' => $request['penugasan'],
             'proyeksi' => $request['proyeksi'],
             'status' => $request['status'],
-            'kolam' => $request['kolam']
+            'kolam' => $request['kolam'],
+            'input' => 'ikhwah'
         ];
-
 
         Pembinaan::create($data);
         return redirect('pembinaan/datamentah');
@@ -148,7 +148,6 @@ class PembinaanController extends Controller
     public function destroy($id)
     {
         Pembinaan::destroy($id);
-
     }
 
     //DRAFT
@@ -260,7 +259,13 @@ class PembinaanController extends Controller
     public function apipembinaan()
     {
         if(Auth::user()->role !== 'ikhwah') {
-          $pembinaan = Pembinaan::where('kolam','bip');
+          $pembinaan = DB::table('pembinaans')
+                            ->leftjoin('bisnis','pembinaans.businesses_id','=','bisnis.id')
+                            ->leftjoin('tags','pembinaans.id','=','tags.id_pembinaan')
+                            ->select('pembinaans.*','bisnis.nama as nama_bisnis','tags.tag')
+                            ->where('input','bip')
+                            ->get();
+          // $pembinaan = Pembinaan::where('input','bip');
         } else {
           $pembinaan = Pembinaan::all();
         }
@@ -288,6 +293,10 @@ class PembinaanController extends Controller
               </li>
             </ul>
           </div>';
+        })->addColumn('edit_bip',function($pembinaan){
+          return '<a href="javascript:;" onclick="edit('.$pembinaan->id.')" class="btn btn-xs btn-primary"><i class="fa fa-pencil"></i> Edit</a>';
+        })->addColumn('delete_bip',function($pembinaan){
+          return '<a href="'.route('userdata.bip.destroy',$pembinaan->id).'" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Hapus</a>';
         })->escapeColumns([])->make(true);
     }
 

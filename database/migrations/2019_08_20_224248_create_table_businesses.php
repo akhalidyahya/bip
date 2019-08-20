@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMakeItsTable extends Migration
+class CreateTableBusinesses extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreateMakeItsTable extends Migration
      */
     public function up()
     {
-        Schema::create('make_its', function (Blueprint $table) {
+        Schema::create('businesses', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('nama',50);
+            $table->text('lokasi');
+            $table->text('penjelasan');
+            $table->text('foto');
+            $table->string('batch',2);
             $table->timestamps();
-			$table->string('nama');
-			$table->string('email');
-			$table->string('no_telp');
-			$table->string('instansi');
         });
     }
 
@@ -30,6 +31,6 @@ class CreateMakeItsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('make_its');
+        Schema::dropIfExists('table_businesses');
     }
 }

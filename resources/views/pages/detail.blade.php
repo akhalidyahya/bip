@@ -48,7 +48,9 @@
 <!-- BEGIN PAGE BASE CONTENT -->
 <div class="row">
     <div class="col-md-12">
-      <a href="{{url('bip/profiles/create')}}" class="btn btn-primary btn-flat"><i class="fa fa-wrench"></i> Edit Data</a> <a onclick="activity()" class="btn btn-primary btn-flat"><i class="fa fa-calendar"></i> Add Progress</a>
+      <a href="{{url('bip/profiles/').'/'.$info[0]->id.'/edit'}}" class="btn btn-primary btn-flat"><i class="fa fa-wrench"></i> Edit Kelompok Bisnis</a>
+      <a href="{{url('bip/profiles/').'/'.$info[0]->id.'/anggota'}}" class="btn btn-primary btn-flat"><i class="fa fa-users"></i> Edit Anggota Kelompok</a>
+      <a onclick="activity()" class="btn btn-primary btn-flat"><i class="fa fa-calendar"></i> Tambah Progress</a>
       <p></p>
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
         <div class="portlet light bordered">
@@ -65,6 +67,11 @@
                       <td>Nama Bisnis</td>
                       <td>:</td>
                       <td>{{$info[0]->nama}}</td>
+                    </tr>
+                    <tr>
+                      <td>Batch</td>
+                      <td>:</td>
+                      <td>{{$info[0]->batch}}</td>
                     </tr>
                     <tr>
                       <td>Lokasi</td>

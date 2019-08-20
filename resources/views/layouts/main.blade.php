@@ -18,6 +18,7 @@
         <meta content="Admin page of BIP Admin Dashboard" name="description" />
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta content="" name="author" />
+        <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/BiP.png/600px-BiP.png" />
         <!-- BEGIN GLOBAL MANDATORY STYLES -->
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
         <link href="{{asset('assets/global/plugins/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css" />
@@ -68,6 +69,7 @@
         <!-- BEGIN THEME LAYOUT SCRIPTS -->
         <script src="{{asset('assets/layouts/layout4/scripts/layout.min.js')}}" type="text/javascript"></script>
         <script src="{{asset('assets/layouts/layout4/scripts/demo.min.js')}}" type="text/javascript"></script>
+        <script src="{{asset('assets/pages/scripts/components-bootstrap-tagsinput.min.js')}}" type="text/javascript"></script>
         <!-- END THEME LAYOUT SCRIPTS -->
         <link rel="shortcut icon" href="favicon.ico" /> </head>
     <!-- END HEAD -->
@@ -153,38 +155,26 @@
                                 <span class="selected"></span>
                             </a>
                         </li>
-                        <li class="nav-item {{ (\Request::route()->getName() == 'bip') ? 'active open' : ''}}">
-                            <a href="javascript:;" class="nav-link nav-toggle">
+                        <li class="nav-item {{ ($sidebar == 'bipprofilebusiness') ? 'active open' : ''}}">
+                            <a href="{{url('bip/profiles')}}" class="nav-link nav-toggle">
                                 <i class="icon-diamond"></i>
                                 <span class="title">BIP</span>
-                                <span class="arrow"></span>
+                                <span class="selected"></span>
                             </a>
-                            <ul class="sub-menu">
-                                <li class="nav-item {{ ($sidebar == 'bipprofilebusiness') ? 'active open' : ''}} ">
-                                    <a href="{{url('bip/profiles')}}" class="nav-link ">
-                                        <span class="title">Profile Business</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item {{ ($sidebar == 'bipuserdata') ? 'active open' : ''}} ">
-                                    <a href="{{url('bip/userdata')}}" class="nav-link ">
-                                        <span class="title">User Data</span>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
-                        <li class="nav-item {{ (\Request::route()->getName() == 'makeit') ? 'active open' : ''}} ">
-                            <a href="javascript:;" class="nav-link nav-toggle">
+                        <!-- <li class="nav-item start {{ (\Request::route()->getName() == 'makeit') ? 'active open' : ''}}">
+                            <a href="{{url('makeit')}}" class="nav-link nav-toggle">
                                 <i class="icon-paper-plane"></i>
-                                <span class="title">Make it</span>
-                                <span class="arrow"></span>
+                                <span class="title">Makeit</span>
+                                <span class="selected"></span>
                             </a>
-                            <ul class="sub-menu">
-                                <li class="nav-item {{ ($sidebar == 'makeituserdata') ? 'active open' : ''}} ">
-                                    <a href="{{url('makeit')}}" class="nav-link ">
-                                        <span class="title">User Data</span>
-                                    </a>
-                                </li>
-                            </ul>
+                        </li> -->
+                        <li class="nav-item start {{ ($sidebar == 'bipuserdata') ? 'active open' : ''}}">
+                            <a href="{{url('bip/userdata')}}" class="nav-link nav-toggle">
+                                <i class="icon-users"></i>
+                                <span class="title">Userdata</span>
+                                <span class="selected"></span>
+                            </a>
                         </li>
                         @if(Auth::user()->role == 'ikhwah')
                         <li class="nav-item {{ (\Request::route()->getName() == 'pembinaan') ? 'active open' : ''}}">

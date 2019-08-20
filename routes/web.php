@@ -52,11 +52,19 @@ Route::get('logout', 'Auth\LoginController@logout', function () {
 Route::prefix('bip')->group(function(){
   Route::get('export','BusinessController@export')->name('business.export');
   Route::get('profiles/detail/{id}','BusinessController@detail')->name('bip');
+  Route::get('profiles/{id}/anggota','BusinessController@anggota')->name('bip');
+  Route::patch('profiles/anggota/hapus/{id}','BusinessController@removeAnggota')->name('bip');
+  Route::patch('profiles/anggota/tambah/{id}/{bisnis}','BusinessController@tambahAnggota')->name('bip');
   Route::post('profiles/detail/activity/store','BusinessController@storeActivity');
   Route::get('userdata','BusinessController@userdata')->name('bip');
+  Route::post('userdata/save','BusinessController@simpanAnggota')->name('userdata.bip.store');
+  Route::post('userdata/makeit/save','BusinessController@simpanAnggotaMakeit')->name('userdata.makeit.store');
+  Route::patch('userdata/update/{id}','BusinessController@updateAnggota')->name('userdata.bip.update');
+  Route::get('userdata/{id}/destroy','BusinessController@destroyAnggota')->name('userdata.bip.destroy');
   Route::resource('profiles','BusinessController',['names'=>[
     'index' => 'bip',
     'create' => 'bip',
+    'edit' => 'bip',
   ]]);
 });
 
@@ -77,6 +85,8 @@ Route::prefix('pengaturan')->group(function(){
 });
 
 Route::get('api/bisnis','BusinessController@apiBisnis')->name('api.bisni');
+Route::get('api/anggotabip/{bisnis}','BusinessController@apiAnggotaBIP')->name('api.anggota.bip');
+Route::get('api/anggotakelompok/{id}','BusinessController@apiAnggotaKelompok')->name('api.anggota.kelompok');
 // Route::get('api/userdatabip','PembinaanController@apiUserdataBip')->name('api.userdata.bip');
 Route::delete('delete/activity/{id}','BusinessController@deleteActivity');
 Route::get('test/{id}','BusinessController@test');

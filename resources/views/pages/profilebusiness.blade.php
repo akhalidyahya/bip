@@ -41,7 +41,7 @@
 <!-- BEGIN PAGE BASE CONTENT -->
 <div class="row">
     <div class="col-md-12">
-      <a href="{{url('bip/profiles/create')}}" class="btn btn-primary btn-flat"><i class="fa fa-plus"></i> Tambah Data</a>
+      <a href="{{url('bip/profiles/create')}}" class="btn btn-primary btn-flat"><i class="fa fa-plus"></i> Tambah Kelompok Bisnis</a>
       <a href="{{route('business.export')}}" class="btn btn-primary btn-flat"><i class="fa fa-download"></i> Export Data Bisnis</a>
       
       <p></p>
@@ -59,6 +59,7 @@
                     <thead>
                         <tr>
                             <th>Nama Bisnis</th>
+                            <th>BIP Batch</th>
                             <th>Lokasi Bisnis</th>
                             <th>Pendapatan</th>
                             <th></th>
@@ -67,6 +68,7 @@
                     <tfoot>
                         <tr>
                             <th>Nama</th>
+                            <th>BIP Batch</th>
                             <th>Lokasi</th>
                             <th>Pendapatan</th>
                             <th></th>
@@ -91,6 +93,7 @@ var t = $('#myTable').DataTable({
   'columns'     : [
 
     {data:'nama', name: 'nama'},
+    {data:'batch', name: 'bacth'},
     {data:'lokasi', name: 'lokasi'},
     {data:'pendapatan', name: 'pendapatan'},
     {data:'aksi', name: 'aksi', orderable: false, searchable: false},

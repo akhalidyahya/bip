@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 22, 2019 at 01:31 PM
+-- Generation Time: Jul 20, 2019 at 11:33 AM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -34,7 +34,6 @@ CREATE TABLE `activities` (
   `pendapatan` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `isi` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `tanggal` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `penulis` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `businesses_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -230,8 +229,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `role`) VALUES
-(3, 'Admin BIP', 'admin@email.com', NULL, '$2y$10$sJCJjSdfFHDSj8TebHYQUuU5GuCk0Tn5AYI33nGbM5uSjWqPGlIHK', 'eihvbzZwu20ezD7r97GlvgWrklrDeUe0JhV2anvxUv2wDBaz7TKYWBGndyL8', '2019-02-13 21:04:52', '2019-02-13 21:04:52', 'bip'),
-(4, 'Admin ADP', 'adp@email.com', NULL, '$2y$10$sJCJjSdfFHDSj8TebHYQUuU5GuCk0Tn5AYI33nGbM5uSjWqPGlIHK', 'AE5G86w2SuuMNHze8ZfRa5cSHQd6haZbamd441xFm3XHDkKe19cpPMxC0sqI', '2019-02-13 21:04:52', '2019-02-13 21:04:52', 'ikhwah');
+(3, 'Admin BIP', 'admin@email.com', NULL, '$2y$10$sJCJjSdfFHDSj8TebHYQUuU5GuCk0Tn5AYI33nGbM5uSjWqPGlIHK', 'SkbnFw4Jr6LXgNyBwduDuKmJ04dVG3HN7PXnNVxFrAZzvtRfir7RxAmrayxF', '2019-02-13 21:04:52', '2019-02-13 21:04:52', 'bip'),
+(4, 'Admin ADP', 'adp@email.com', NULL, '$2y$10$sJCJjSdfFHDSj8TebHYQUuU5GuCk0Tn5AYI33nGbM5uSjWqPGlIHK', 'QShUbZDjLsNZnTK6YjYXIdlRY5pEoAe9f77hgogfdjORudCebKeJ1ZmlsKpy', '2019-02-13 21:04:52', '2019-02-13 21:04:52', 'ikhwah');
 
 --
 -- Indexes for dumped tables
@@ -302,13 +301,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `activities`
 --
 ALTER TABLE `activities`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `anggotas`
 --
 ALTER TABLE `anggotas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `bisnis`

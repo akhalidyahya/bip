@@ -10,6 +10,7 @@ use App\Anggota;
 use App\Pembinaan;
 use App\Bisnis;
 use App\Activity;
+use App\Tag;
 
 use Excel;
 // use DB;
@@ -71,6 +72,7 @@ class BusinessController extends Controller
             'status' => 1,
             'kolam' => 'bip',
             'businesses_id' => $bisnis->id,
+            'input' => 'bip'
           ];
           Pembinaan::create($data);
         }
@@ -98,7 +100,114 @@ class BusinessController extends Controller
      */
     public function edit($id)
     {
-        //
+      $info = DB::table('bisnis')->where('id',$id)->get();
+      return view('pages/editprofilebusiness',[
+        'info'=> $info,
+        'sidebar'=> 'bipprofilebusiness'
+      ]);
+    }
+
+    public function anggota($id)
+    {
+      $anggota = DB::table('pembinaans')->where('businesses_id',$id)->get();
+      return view('pages/editanggotabusiness',[
+        'bisnis' => Bisnis::find($id),
+        'anggota'=> $anggota,
+        'all_anggota' => Pembinaan::where('input','bip')->get(),
+        'sidebar'=> 'bipprofilebusiness'
+      ]);
+    }
+
+    public function removeAnggota($id) {
+      $anggota = Pembinaan::find($id);
+      $data = [
+        'businesses_id' => ''
+      ];
+      $anggota->update($data);
+    }
+
+    public function tambahAnggota($id,$bisnis) {
+      $anggota = Pembinaan::find($id);
+      $data = [
+        'businesses_id' => $bisnis
+      ];
+      $anggota->update($data);
+    }
+
+    function simpanAnggota(Request $request){
+      $data=[
+        'nama' => $request['nama'],
+        'angkatan' => $request['angkatan'],
+        'jurusan' => $request['jurusan'],
+        'umur' => $request['umur'],
+        'kelas' => $request['kelas'],
+        'kelamin' => $request['kelamin'],
+        'instansi' => $request['instansi'],
+        'email' => $request['email'],
+        'no_telp' => $request['no_telp'],
+        'status' => 1,
+        'kolam' => 'bip',
+        'businesses_id' => $request['kelompok'],
+        'input' => 'bip'
+      ];
+      Pembinaan::create($data);
+      $pembinaan = Pembinaan::orderBy('id','desc')->first();
+      Tag::create([
+        'id_pembinaan' => $pembinaan->id,
+        'tag' => 'bip'
+      ]);
+      // return redirect('bip/userdata');
+    }
+
+    function simpanAnggotaMakeit(Request $request){
+      $data=[
+        'nama' => $request['nama'],
+        'angkatan' => $request['angkatan'],
+        'jurusan' => $request['jurusan'],
+        'umur' => $request['umur'],
+        'kelas' => $request['kelas'],
+        'kelamin' => $request['kelamin'],
+        'instansi' => $request['instansi'],
+        'email' => $request['email'],
+        'no_telp' => $request['no_telp'],
+        'status' => 1,
+        'kolam' => 'bip',
+        'businesses_id' => $request['kelompok'],
+        'input' => 'bip'
+      ];
+      Pembinaan::create($data);
+      $pembinaan = Pembinaan::orderBy('id','desc')->first();
+      Tag::create([
+        'id_pembinaan' => $pembinaan->id,
+        'tag' => 'makeit'
+      ]);
+      // return redirect('bip/userdata');
+    }
+
+    function updateAnggota(Request $request){
+      $anggota = Pembinaan::find($request['id']);
+      $data=[
+        'nama' => $request['nama'],
+        'angkatan' => $request['angkatan'],
+        'jurusan' => $request['jurusan'],
+        'umur' => $request['umur'],
+        'kelas' => $request['kelas'],
+        'kelamin' => $request['kelamin'],
+        'instansi' => $request['instansi'],
+        'email' => $request['email'],
+        'no_telp' => $request['no_telp'],
+        'status' => 1,
+        'kolam' => 'bip',
+        'businesses_id' => $request['kelompok'],
+        'input' => 'bip'
+      ];
+      $anggota->update($data);
+      return redirect('bip/userdata');
+    }
+
+    function destroyAnggota(Request $request, $id){
+      Pembinaan::destroy($id);
+      return redirect('bip/userdata');
     }
 
     /**
@@ -110,7 +219,16 @@ class BusinessController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $bisnis = Bisnis::find($id);
+        $data = [
+          'nama' => $request->nama,
+          'lokasi' => $request->lokasi,
+          'pendapatan' => $request->pendapatan,
+          'penjelasan' => $request->penjelasan,
+          'batch' => $request->batch
+        ];
+        $bisnis->update($data);
+        return redirect('bip/profiles/'.$bisnis->id.'/edit');
     }
 
     /**
@@ -127,7 +245,8 @@ class BusinessController extends Controller
     public function userdata()
     {
       return view('pages/userdatabip',[
-        'sidebar' => 'bipuserdata'
+        'sidebar' => 'bipuserdata',
+        'bisnis' => Bisnis::all()
       ]);
     }
 
@@ -206,5 +325,25 @@ class BusinessController extends Controller
 
     public function deleteActivity($id){
       Activity::destroy($id);
+    }
+
+    public function apiAnggotaBIP($bisnis)
+    {
+      $anggota = Pembinaan::where('input','bip')->where('businesses_id','!=',$bisnis)->get();
+
+      return DataTables::of($anggota)
+        ->addColumn('aksi',function($anggota) {
+          return '<a href="javascript:;" onclick="tambah('.$anggota->id.');" class="font-green"><i class="fa fa-caret-left"></i> Tambah</a>';
+      })->escapeColumns([])->make(true);
+    }
+
+    public function apiAnggotaKelompok($id)
+    {
+      $anggota = Pembinaan::where('businesses_id',$id)->get();
+
+      return DataTables::of($anggota)
+        ->addColumn('aksi',function($anggota) {
+          return '<a href="javascript:;" onclick="hapus('.$anggota->id.');" class="font-red"><i class="fa fa-times"></i> Remove</a>';
+      })->escapeColumns([])->make(true);
     }
 }

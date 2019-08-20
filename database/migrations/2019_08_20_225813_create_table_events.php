@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateTableMakeit3 extends Migration
+class CreateTableEvents extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class UpdateTableMakeit3 extends Migration
      */
     public function up()
     {
-        Schema::table('make_its', function (Blueprint $table) {
+        Schema::create('events', function (Blueprint $table) {
             $table->increments('id');
-
+            $table->string('name',50);
+            $table->string('kategori',10); //Isinya: 'riset' atau 'entre'. Tapi manual.
+            $table->timestamps();
         });
     }
 
@@ -26,6 +28,6 @@ class UpdateTableMakeit3 extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('table_events');
     }
 }
