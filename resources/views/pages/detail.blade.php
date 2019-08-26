@@ -79,11 +79,6 @@
                       <td>{{$info[0]->lokasi}}</td>
                     </tr>
                     <tr>
-                      <td>Pendapatan bulan terakhir</td>
-                      <td>:</td>
-                      <td>Rp. {{$info[0]->pendapatan}}</td>
-                    </tr>
-                    <tr>
                       <td>Penjelasan Bisnis</td>
                       <td>:</td>
                       <td>{{$info[0]->penjelasan}}</td>

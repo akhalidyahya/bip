@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Kolam;
+use App\Event;
 
-class KolamController extends Controller
+class EventController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,9 @@ class KolamController extends Controller
      */
     public function index()
     {
-        return view('pages/kolam',[
-          'sidebar' => 'kolam',
-          'kolam' => Kolam::all()
+        return view('pages/event',[
+          'sidebar' => 'event',
+          'event' => Event::all()
         ]);
     }
 
@@ -38,12 +38,12 @@ class KolamController extends Controller
      */
     public function store(Request $request)
     {
-        Kolam::create([
+        Event::create([
           'name' => $request->name,
           'kategori' => $request->kategori
         ]);
 
-        return redirect('pengaturan/kolam');
+        return redirect('pengaturan/event');
     }
 
     /**
@@ -65,7 +65,7 @@ class KolamController extends Controller
      */
     public function edit($id)
     {
-        return Kolam::find($id);
+        return Event::find($id);
     }
 
     /**
@@ -88,7 +88,7 @@ class KolamController extends Controller
      */
     public function destroy($id)
     {
-        Kolam::destroy($id);
-        return redirect('pengaturan/kolam');
+        Event::destroy($id);
+        return redirect('pengaturan/event');
     }
 }

@@ -8,10 +8,10 @@
 
     <head>
         <meta charset="utf-8" />
-        @if(Auth::user()->role == 'bip')
+        @if(Auth::user()->role == 'admin_bip')
         <title>BIP | Admin</title>
         @else
-        <title>ADP | Admin</title>
+        <title>Super | Admin</title>
         @endif
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
@@ -176,31 +176,31 @@
                                 <span class="selected"></span>
                             </a>
                         </li>
-                        @if(Auth::user()->role == 'ikhwah')
-                        <li class="nav-item {{ (\Request::route()->getName() == 'pembinaan') ? 'active open' : ''}}">
+                        @if(Auth::user()->role == 'admin_super')
+                        <li class="nav-item {{ (\Request::route()->getName() == 'member') ? 'active open' : ''}}">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="icon-key"></i>
-                                <span class="title">Pembinaan</span>
+                                <span class="title">Member</span>
                                 <span class="arrow"></span>
                             </a>
                             <ul class="sub-menu">
                                 <li class="nav-item {{ ($sidebar == 'mentahuserdata') ? 'active open' : ''}} ">
-                                    <a href="{{url('pembinaan/datamentah')}}" class="nav-link ">
+                                    <a href="{{url('member/datamentah')}}" class="nav-link ">
                                         <span class="title">Pendataan</span>
                                     </a>
                                 </li>
                                 <li class="nav-item {{ ($sidebar == 'draftuserdata') ? 'active open' : ''}} ">
-                                    <a href="{{url('pembinaan/draft')}}" class="nav-link ">
+                                    <a href="{{url('member/draft')}}" class="nav-link ">
                                         <span class="title">Draft</span>
                                     </a>
                                 </li>
                                 <li class="nav-item {{ ($sidebar == 'karantinauserdata') ? 'active open' : ''}} ">
-                                    <a href="{{url('pembinaan/karantina')}}" class="nav-link ">
+                                    <a href="{{url('member/karantina')}}" class="nav-link ">
                                         <span class="title">Karantina</span>
                                     </a>
                                 </li>
                                 <li class="nav-item {{ ($sidebar == 'aktifuserdata') ? 'active open' : ''}} ">
-                                    <a href="{{url('pembinaan/aktif')}}" class="nav-link ">
+                                    <a href="{{url('member/aktif')}}" class="nav-link ">
                                         <span class="title">Aktif</span>
                                     </a>
                                 </li>
@@ -213,9 +213,9 @@
                                 <span class="arrow"></span>
                             </a>
                             <ul class="sub-menu">
-                                <li class="nav-item {{ ($sidebar == 'kolam') ? 'active open' : ''}} ">
-                                    <a href="{{url('pengaturan/kolam')}}" class="nav-link ">
-                                        <span class="title">Kolam</span>
+                                <li class="nav-item {{ ($sidebar == 'event') ? 'active open' : ''}} ">
+                                    <a href="{{url('pengaturan/event')}}" class="nav-link ">
+                                        <span class="title">Event</span>
                                     </a>
                                 </li>
                             </ul>

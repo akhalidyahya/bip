@@ -22,7 +22,7 @@
 <div class="page-head">
     <!-- BEGIN PAGE TITLE -->
     <div class="page-title">
-        <h1>ADP Admin | Pembinaan
+        <h1>ADP Admin | member
             <small>statistics, charts and reports</small>
         </h1>
     </div>
@@ -40,7 +40,7 @@
         <i class="fa fa-circle"></i>
     </li>
     <li>
-        <span class="active">Pembinaan</span>
+        <span class="active">member</span>
     </li>
 </ul>
 <!-- END PAGE BREADCRUMB -->
@@ -75,7 +75,7 @@
                             <th>Instansi</th>
                             <th>Phone</th>
                             <th>Kategori</th>
-                            <th>Kolam</th>
+                            <th>event</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -204,15 +204,15 @@
                   </div>
                   <div class="form-group form-md-line-input has-success form-md-floating-label">
                       <div class="input-icon">
-                          <input id="murabbi" type="text" class="form-control" name="murabbi">
+                          <input id="guru" type="text" class="form-control" name="guru">
                           <label for="form_control_1">Pembina</label>
                           <i class="fa fa-circle"></i>
                       </div>
                   </div>
                   <div class="form-group form-md-line-input has-success form-md-floating-label">
                       <div class="input-icon">
-                          <input id="liqo" type="text" class="form-control" name="liqo">
-                          <label for="form_control_1">Liqo</label>
+                          <input id="pertemuan" type="text" class="form-control" name="pertemuan">
+                          <label for="form_control_1">pertemuan</label>
                           <i class="fa fa-circle"></i>
                       </div>
                   </div>
@@ -262,10 +262,10 @@
                     </select>
                   </div>
                    <div class="form-group form-md-line-input has-success form-md-floating-label">
-                    <label for="form_control_1">Kolam</label>
-                    <select name="kolam" id="kolam" class="form-control" required>
+                    <label for="form_control_1">event</label>
+                    <select name="event" id="event" class="form-control" required>
                         <option value="">-Pilih-</option>
-                        @foreach($kolam as $data)
+                        @foreach($event as $data)
                         <option value="{{$data->name}}">{{$data->name}}</option>
                         @endforeach
                     </select>
@@ -311,7 +311,7 @@ $("#komunitas").click(function () {
   var table = $('#mentah').DataTable({
     'processing': true,
     'serverSide': true,
-    'ajax' : "{{route('apipembinaan') }}",
+    'ajax' : "{{route('apimember') }}",
     'dataType' : 'JSON',
     'paging' : true,
     'lengthChange': true,
@@ -320,8 +320,8 @@ $("#komunitas").click(function () {
     {data: 'email', name: 'email'},
     {data: 'instansi', name: 'instansi'},
     {data: 'no_telp', name: 'no_telp'},
-    {data: 'status', name: 'status'},
-    {data: 'kolam', name: 'kolam'},
+    {data: 'level', name: 'level'},
+    {data: 'event_id', name: 'event_id'},
     {data: 'aksi', name: 'aksi', orderable: false, searchable: false}
     ],
     'info': true,
@@ -349,7 +349,7 @@ $("#all").click(function () {
     $('#myModal-form form')[0].reset();
 
     $.ajax({
-      url: "{{ url('pembinaan') }}" + '/' + id + "/edit",
+      url: "{{ url('member') }}" + '/' + id + "/edit",
       type: "GET",
       dataType: "JSON",
       success: function(data) {
@@ -370,15 +370,15 @@ $("#all").click(function () {
         $('#pic').val(data.pic);
         $('#interest').val(data.interest);
         $('#tindakan').val(data.tindakan);
-        $('#murabbi').val(data.murabbi);
-        $('#liqo').val(data.liqo);
+        $('#guru').val(data.guru);
+        $('#pertemuan').val(data.pertemuan);
         $('#bisnis').val(data.bisnis);
         $('#pemahaman').val(data.pemahaman);
         $('#keterlibatan').val(data.keterlibatan);
         $('#penugasan').val(data.penugasan);
         $('#proyeksi').val(data.proyeksi);
-        $('#status').val(data.status);
-        $('#kolam').val(data.kolam);
+        $('#level').val(data.level);
+        $('#event').val(data.event);
       },
 
       error :  function() {
@@ -392,7 +392,7 @@ $("#all").click(function () {
     var csrf_token = $('meta[name="csrf_token"]').attr('content');
     if (popup  == true){
       $.ajax({
-        url : "{{ url('pembinaan') }}" + '/' + id,
+        url : "{{ url('member') }}" + '/' + id,
         type : "POST",
         data : {'_method' : 'DELETE', '_token' : csrf_token},
         success: function(data){
@@ -410,8 +410,8 @@ $("#all").click(function () {
   $('#submit').click(function(e){
       e.preventDefault();
       var id = $('#id').val();
-      if (save_method=='add') url ="{{url('pembinaan/datamentah/store') }}";
-      else url = "{{ url('pembinaan') . '/' }}" + id;
+      if (save_method=='add') url ="{{url('member/datamentah/store') }}";
+      else url = "{{ url('member') . '/' }}" + id;
 
       $.ajax({
         url : url,

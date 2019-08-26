@@ -19,7 +19,7 @@
 <div class="page-head">
     <!-- BEGIN PAGE TITLE -->
     <div class="page-title">
-        <h1>ADP Admin | Pembinaan
+        <h1>Super Admin | Member
             <small>statistics, charts and reports</small>
         </h1>
     </div>
@@ -37,7 +37,7 @@
         <i class="fa fa-circle"></i>
     </li>
     <li>
-        <span class="active">Pembinaan</span>
+        <span class="active">Member</span>
     </li>
 </ul>
 <!-- END PAGE BREADCRUMB -->
@@ -60,8 +60,8 @@
                             <th>Nama</th>
                             <th>Jurusan</th>
                             <th>Phone</th>
-                            <th>Murabbi</th>
-                            <th>Kondisi Liqo</th>
+                            <th>Guru</th>
+                            <th>Pertemuan</th>
                             <th>Pemahaman</th>
                             <th>Keterlibatan</th>
                             <th>Kategori</th>
@@ -100,11 +100,11 @@ var t = $('#karantina').DataTable({
     {data:'nama', name: 'nama'},
     {data:'jurusan', name: 'jurusan'},
     {data:'no_telp', name: 'no_telp'},
-    {data:'murabbi', name: 'murabbi'},
-    {data:'liqo', name: 'liqo'},
+    {data:'guru', name: 'guru'},
+    {data:'pertemuan', name: 'pertemuan'},
     {data:'pemahaman', name: 'pemahaman'},
     {data:'keterlibatan', name: 'keterlibatan'},
-    {data:'status', name:'status'},
+    {data:'level', name:'level'},
     {data:'aksi', name: 'aksi'},
   ],
   'info'        : true,

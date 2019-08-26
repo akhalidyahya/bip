@@ -61,7 +61,6 @@
                             <th>Nama Bisnis</th>
                             <th>BIP Batch</th>
                             <th>Lokasi Bisnis</th>
-                            <th>Pendapatan</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -70,7 +69,6 @@
                             <th>Nama</th>
                             <th>BIP Batch</th>
                             <th>Lokasi</th>
-                            <th>Pendapatan</th>
                             <th></th>
                         </tr>
                     </tfoot>
@@ -95,7 +93,6 @@ var t = $('#myTable').DataTable({
     {data:'nama', name: 'nama'},
     {data:'batch', name: 'bacth'},
     {data:'lokasi', name: 'lokasi'},
-    {data:'pendapatan', name: 'pendapatan'},
     {data:'aksi', name: 'aksi', orderable: false, searchable: false},
   ],
   'buttons': [

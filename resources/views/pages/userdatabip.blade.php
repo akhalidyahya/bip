@@ -69,7 +69,7 @@
                             <!-- <th>Email</th> -->
                             <th>Instansi</th>
                             <th>Bisnis</th>
-                            <th>Tag</th>
+                            <th>Event</th>
                             <th>Edit</th>
                             <th>Delete</th>
                         </tr>
@@ -175,24 +175,12 @@
                           <i class="fa fa-newspaper-o"></i>
                           <select class="form-control" id="kelompok" name="kelompok">
                            <option value="">Belum ada Kelompok</option>
-                           @foreach($bisnis as $data)
+                           @foreach($business as $data)
                            <option value="{{$data->id}}">{{$data->nama}}</option>
                            @endforeach
                          </select>
                       </div>
                   </div>
-                  <div class="form-group">
-                        <label class="control-label col-md-3">Multi value</label>
-                        <div class="col-md-6">
-                            <select multiple data-role="tagsinput">
-                                <option value="Amsterdam">Amsterdam</option>
-                                <option value="Washington">Washington</option>
-                                <option value="Sydney">Sydney</option>
-                                <option value="Beijing">Beijing</option>
-                                <option value="Cairo">Cairo</option>
-                            </select>
-                        </div>
-                    </div>
                     <a href="#" class="btn btn-default" id="submit">Submit</a>
                 </div>
               </form>
@@ -213,7 +201,7 @@
 var t = $('#myTable').DataTable({
   'processing'  : true,
   'serverSide'  : true,
-  'ajax'        : "{{ route('apipembinaan') }}",
+  'ajax'        : "{{ route('apimember') }}",
   'dataType'    : 'json',
   'paging'      : true,
   'lengthChange': true,
@@ -228,7 +216,7 @@ var t = $('#myTable').DataTable({
     // {data:'email', name: 'email'},
     {data:'instansi', name: 'instansi'},
     {data:'nama_bisnis', name: 'nama_bisnis'},
-    {data:'tag', name: 'tag'},
+    {data:'event_id', name: 'event_id'},
     {data:'edit_bip', name: 'edit_bip', orderable: false, searchable: false},
     {data:'delete_bip', name: 'delete_bip', orderable: false, searchable: false},
   ],
@@ -258,7 +246,7 @@ function edit(id){
   $('#myModal-form form')[0].reset();
 
   $.ajax({
-    url: "{{ url('pembinaan') }}" + '/' + id + "/edit",
+    url: "{{ url('member') }}" + '/' + id + "/edit",
     type: "GET",
     dataType: "JSON",
     success: function(data) {

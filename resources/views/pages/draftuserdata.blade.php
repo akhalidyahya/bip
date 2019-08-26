@@ -62,7 +62,7 @@
                             <th>Kelas</th>
                             <th>Jurusan</th>
                             <th>Phone</th>
-                            <th>Kolam</th>
+                            <th>Event</th>
                             <th>Kategori</th>
                             <th>Action</th>
                         </tr>
@@ -100,8 +100,8 @@ var table = $('#draft').DataTable({
     {data:'kelas', name: 'kelas'},
     {data:'jurusan', name: 'jurusan'},
     {data:'no_telp', name: 'no_telp'},
-    {data:'kolam', name: 'kolam'},
-    {data:'status', name:'status'},
+    {data:'event', name: 'event'},
+    {data:'level', name:'level'},
     {data:'aksi', name: 'aksi'},
   ],
   'info'        : true,

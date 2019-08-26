@@ -4,7 +4,7 @@
 <div class="page-head">
     <!-- BEGIN PAGE TITLE -->
     <div class="page-title">
-        <h1>Kolam ADP
+        <h1>Events
             <small>statistics, charts and reports</small>
         </h1>
     </div>
@@ -18,23 +18,23 @@
         <i class="fa fa-circle"></i>
     </li>
     <li>
-        <span class="active">Kolam</span>
+        <span class="active">Events</span>
     </li>
 </ul>
 <!-- END PAGE BREADCRUMB -->
 <!-- BEGIN PAGE BASE CONTENT -->
 <div class="row widget-row">
     <div class="col-md-12">
-      <button onclick="tambahData()" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah Kolam</button>
+      <button onclick="tambahData()" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah Event</button>
     </div>
     <hr>
-    @foreach($kolam as $data)
+    @foreach($event as $data)
     <div onclick="close()" class="col-md-3">
         <!-- BEGIN WIDGET THUMB -->
           <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
               <h4 class="widget-thumb-heading">{{$data->kategori}}</h4>
               <div class="widget-thumb-wrap">
-                  @if($data->kategori == 'entrepreneur')
+                  @if($data->kategori == 'entre')
                   <i class="widget-thumb-icon bg-green icon-bulb"></i>
                   @else
                   <i class="widget-thumb-icon bg-blue icon-notebook"></i>
@@ -75,15 +75,15 @@
                   <div class="form-group form-md-line-input has-success form-md-floating-label">
                       <div class="input-icon">
                           <input id="name" type="text" class="form-control" name="name" required autocomplete="off">
-                          <label for="form_control_1">Nama Kolam</label>
+                          <label for="form_control_1">Nama Event</label>
                           <i class="fa fa-calendar"></i>
                       </div>
                   </div>
                    <div class="form-group form-md-line-input has-success form-md-floating-label">
-                    <label for="form_control_1">Kategori Kolam</label>
+                    <label for="form_control_1">Kategori Event</label>
                     <select name="kategori" id="kategori" class="form-control" required>
                         <option value="">-Pilih-</option>
-                        <option value="entrepreneur">Entrepreneur</option>
+                        <option value="entre">Entre</option>
                         <option value="riset">Riset</option>
                     </select>
                   </div>
@@ -122,7 +122,7 @@ function editData(id){
   $('#myModal-form form')[0].reset();
 
   $.ajax({
-    url: "{{ url('pengaturan/kolam') }}" + '/' + id + "/edit",
+    url: "{{ url('pengaturan/event') }}" + '/' + id + "/edit",
     type: "GET",
     dataType: "JSON",
     success: function(data) {
@@ -143,8 +143,8 @@ function editData(id){
 $('#submit').click(function(e){
     e.preventDefault();
     var id = $('#id').val();
-    if (save_method=='add') url ="{{route('kolam.store') }}";
-    else url = "{{ url('pengaturan/kolam') . '/' }}" + id;
+    if (save_method=='add') url ="{{route('event.store') }}";
+    else url = "{{ url('pengaturan/event') . '/' }}" + id;
 
     $.ajax({
       url : url,
@@ -166,7 +166,7 @@ function deleteData(id){
   var csrf_token = $('meta[name="csrf-token"]').attr('content');
   if (popup  == true){
     $.ajax({
-      url : "{{ url('pengaturan/kolam') }}" + '/' + id,
+      url : "{{ url('pengaturan/event') }}" + '/' + id,
       type : "POST",
       data : {'_method' : 'DELETE', '_token' : csrf_token},
       success: function(data){

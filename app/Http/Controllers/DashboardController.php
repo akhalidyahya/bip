@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Pembinaan;
-use App\Bisnis;
+use App\Member;
+use App\Business;
 use Auth;
+use DB;
 
 class DashboardController extends Controller
 {
@@ -26,20 +27,20 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->role == 'ikhwah'){
-            $pembinaan = Pembinaan::count();
+        if(Auth::user()->role == 'admin_super'){
+            $member = DB::table('members')->count();
         } else {
-            $pembinaan = Pembinaan::where('input','bip')->count();   
+            $member = Member::where('input_by','admin_bip')->count();   
         }
         
         return view('pages/dashboard',[
           'sidebar' => 'dashboard',
-          'jml_bisnis' => Bisnis::count(),
-          'jml_anggota' => $pembinaan,
-          'jml_pendataan' => Pembinaan::where('status',1)->count(),
-          'jml_draft' => Pembinaan::where('status',2)->count(),
-          'jml_karantina' => Pembinaan::where('status',3)->count(),
-          'jml_aktif' => Pembinaan::where('status',4)->count()
+          'jml_bisnis' => Business::count(),
+          'jml_anggota' => $member,
+          'jml_pendataan' => Member::where('level',1)->count(),
+          'jml_draft' => Member::where('level',2)->count(),
+          'jml_karantina' => Member::where('level',3)->count(),
+          'jml_aktif' => Member::where('level',4)->count()
         ]);
     }
 }

@@ -4,12 +4,12 @@
 <div class="page-head">
     <!-- BEGIN PAGE TITLE -->
     <div class="page-title">
-        @if(Auth::user()->role == 'bip')
+        @if(Auth::user()->role == 'admin_bip')
         <h1>BIP Admin Dashboard
             <small>statistics, charts and reports</small>
         </h1>
         @else
-        <h1>ADP Admin Dashboard
+        <h1>Super Admin Dashboard
             <small>statistics, charts and reports</small>
         </h1>
         @endif
@@ -29,7 +29,7 @@
 </ul>
 <!-- END PAGE BREADCRUMB -->
 <!-- BEGIN PAGE BASE CONTENT -->
-@if(Auth::user()->role=='bip')
+@if(Auth::user()->role=='admin_bip')
 <div class="row widget-row">
     <div class="col-md-3">
         <!-- BEGIN WIDGET THUMB -->

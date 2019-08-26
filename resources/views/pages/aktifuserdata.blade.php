@@ -60,7 +60,7 @@
                             <th>Nama</th>
                             <th>Jurusan</th>
                             <th>Phone</th>
-                            <th>Murabbi</th>
+                            <th>Guru</th>
                             <th>Kategori</th>
                             <th>Action</th>
                         </tr>
@@ -97,8 +97,8 @@ var t = $('#aktif').DataTable({
     {data:'nama', name: 'nama'},
     {data:'jurusan', name: 'jurusan'},
     {data:'no_telp', name: 'no_telp'},
-    {data:'murabbi', name: 'murabbi'},
-    {data:'status', name:'status'},
+    {data:'guru', name: 'guru'},
+    {data:'level', name:'level'},
     {data:'aksi', name: 'aksi'},
   ],
   'info'        : true,

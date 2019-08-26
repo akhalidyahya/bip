@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
-use App\Pembinaan;
+use App\Member;
 use Auth;
 use Excel;
-use App\Kolam;
+use App\Event;
 
-class PembinaanController extends Controller
+class MemberController extends Controller
 {
     public function __construct()
     {
@@ -23,12 +23,12 @@ class PembinaanController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->role !== 'ikhwah') {
+        if (Auth::user()->role !== 'admin_super') {
           return redirect('dashboard');
         }
         return view('pages/mentahuserdata',[
           'sidebar' => 'mentahuserdata',
-          'kolam' => Kolam::all()
+          'event' => Event::all()
         ]);
     }
 
@@ -64,20 +64,20 @@ class PembinaanController extends Controller
             'pic' => $request['pic'],
             'interest' => $request['interest'],
             'tindakan' => $request['tindakan'],
-            'murabbi' => $request['murabbi'],
-            'liqo' => $request['liqo'],
-            'bisnis' => $request['bisnis'],
+            'guru' => $request['guru'],
+            'pertemuan' => $request['pertemuan'],
+            // 'business' => $request['businesses'],
             'pemahaman' => $request['pemahaman'],
             'keterlibatan' => $request['keterlibatan'],
             'penugasan' => $request['penugasan'],
             'proyeksi' => $request['proyeksi'],
-            'status' => $request['status'],
-            'kolam' => $request['kolam'],
-            'input' => 'ikhwah'
+            'level' => $request['status'],
+            'event' => $request['event'],
+            'input' => 'admin_super'
         ];
 
-        Pembinaan::create($data);
-        return redirect('pembinaan/datamentah');
+        Member::create($data);
+        return redirect('member/datamentah');
     }
 
     /**
@@ -99,8 +99,8 @@ class PembinaanController extends Controller
      */
     public function edit($id)
     {
-        $pembinaan = Pembinaan::find($id);
-        return $pembinaan;
+        $member = Member::find($id);
+        return $member;
     }
 
 
@@ -113,30 +113,30 @@ class PembinaanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $pembinaan = Pembinaan::find($id);
-        $pembinaan->nama = $request['nama'];
-        $pembinaan->kelamin = $request['kelamin'];
-        $pembinaan->umur = $request['umur'];
-        $pembinaan->angkatan = $request['angkatan'];
-        $pembinaan->jurusan = $request['jurusan'];
-        $pembinaan->kelas = $request['kelas'];
-        $pembinaan->email = $request['email'];
-        $pembinaan->no_telp = $request['no_telp'];
-        $pembinaan->instansi = $request['instansi'];
-        $pembinaan->kelompok = $request['kelompok'];
-        $pembinaan->pic = $request['pic'];
-        $pembinaan->interest = $request['interest'];
-        $pembinaan->tindakan = $request['tindakan'];
-        $pembinaan->murabbi = $request['murabbi'];
-        $pembinaan->liqo = $request['liqo'];
-        $pembinaan->bisnis = $request['bisnis'];
-        $pembinaan->pemahaman = $request['pemahaman'];
-        $pembinaan->keterlibatan = $request['keterlibatan'];
-        $pembinaan->penugasan = $request['penugasan'];
-        $pembinaan->proyeksi = $request['proyeksi'];
-        $pembinaan->status = $request['status'];
-        $pembinaan->kolam = $request['kolam'];
-        $pembinaan->update();
+        $member = Member::find($id);
+        $member->nama = $request['nama'];
+        $member->kelamin = $request['kelamin'];
+        $member->umur = $request['umur'];
+        $member->angkatan = $request['angkatan'];
+        $member->jurusan = $request['jurusan'];
+        $member->kelas = $request['kelas'];
+        $member->email = $request['email'];
+        $member->no_telp = $request['no_telp'];
+        $member->instansi = $request['instansi'];
+        $member->kelompok = $request['kelompok'];
+        $member->pic = $request['pic'];
+        $member->interest = $request['interest'];
+        $member->tindakan = $request['tindakan'];
+        $member->guru = $request['guru'];
+        $member->pertemuan = $request['pertemuan'];
+        // $member->bisnis = $request['bisnis'];
+        $member->pemahaman = $request['pemahaman'];
+        $member->keterlibatan = $request['keterlibatan'];
+        $member->penugasan = $request['penugasan'];
+        $member->proyeksi = $request['proyeksi'];
+        $member->level = $request['status'];
+        $member->event = $request['event'];
+        $member->update();
     }
 
     /**
@@ -147,20 +147,20 @@ class PembinaanController extends Controller
      */
     public function destroy($id)
     {
-        Pembinaan::destroy($id);
+        Member::destroy($id);
     }
 
     //DRAFT
     public function pindahDraft($id){
-        $pembinaan = DB::table('pembinaans')->where('id',$id)->update(['status'=>'2']);
-        return redirect('pembinaan/draft');
+        $member = DB::table('members')->where('id',$id)->update(['level'=>'2']);
+        return redirect('member/draft');
     }
 
     public function apiDraft(){
-      $pembinaan = DB::table('pembinaans')->where('status','2')->orderBy('created_at','asc');
+      $member = DB::table('members')->where('level','2')->orderBy('created_at','asc');
 
-      return DataTables::of($pembinaan)
-            ->addColumn('aksi',function($pembinaan) {
+      return DataTables::of($member)
+            ->addColumn('aksi',function($member) {
               return '
             <div class="btn-group">
             <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="true">Pindah
@@ -168,15 +168,15 @@ class PembinaanController extends Controller
             </button>
             <ul class="dropdown-menu" role="menu">
               <li>
-                <a href="pindah/'.$pembinaan->id.'/status-2"> Draft
+                <a href="pindah/'.$member->id.'/status-2"> Draft
                 </a>
               </li>
               <li>
-                <a href="pindah/'.$pembinaan->id.'/status-3"> Karantina
+                <a href="pindah/'.$member->id.'/status-3"> Karantina
                 </a>
               </li>
               <li>
-                <a href="pindah/'.$pembinaan->id.'/status-4"> Aktif
+                <a href="pindah/'.$member->id.'/status-4"> Aktif
                 </a>
               </li>
             </ul>
@@ -187,15 +187,15 @@ class PembinaanController extends Controller
 
     //KARANTINA
     public function pindahKarantina($id){
-      $pembinaan = DB::table('pembinaans')->where('id',$id)->update(['status'=>'3']);
-        return redirect('pembinaan/karantina');
+      $member = DB::table('members')->where('id',$id)->update(['level'=>'3']);
+        return redirect('member/karantina');
     }
 
     public function apiKarantina(){
-      $pembinaan = DB::table('pembinaans')->where('status','3')->orderBy('created_at','asc');
+      $member = DB::table('members')->where('level','3')->orderBy('created_at','asc');
 
-      return DataTables::of($pembinaan)
-            ->addColumn('aksi',function($pembinaan) {
+      return DataTables::of($member)
+            ->addColumn('aksi',function($member) {
               return '
             <div class="btn-group">
             <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="true">Pindah
@@ -203,15 +203,15 @@ class PembinaanController extends Controller
             </button>
             <ul class="dropdown-menu" role="menu">
               <li>
-                <a href="pindah/'.$pembinaan->id.'/status-2"> Draft
+                <a href="pindah/'.$member->id.'/status-2"> Draft
                 </a>
               </li>
               <li>
-                <a href="pindah/'.$pembinaan->id.'/status-3"> Karantina
+                <a href="pindah/'.$member->id.'/status-3"> Karantina
                 </a>
               </li>
               <li>
-                <a href="pindah/'.$pembinaan->id.'/status-4"> Aktif
+                <a href="pindah/'.$member->id.'/status-4"> Aktif
                 </a>
               </li>
             </ul>
@@ -222,15 +222,15 @@ class PembinaanController extends Controller
 
     //AKTIF
     public function pindahAktif($id){
-      $pembinaan = DB::table('pembinaans')->where('id',$id)->update(['status'=>'4']);
-      return redirect('pembinaan/aktif');
+      $member = DB::table('members')->where('id',$id)->update(['level'=>'4']);
+      return redirect('member/aktif');
     }
 
     public function apiAktif(){
-      $pembinaan = DB::table('pembinaans')->where('status','4')->orderBy('created_at','asc');
+      $member = DB::table('members')->where('level','4')->orderBy('created_at','asc');
 
-      return DataTables::of($pembinaan)
-            ->addColumn('aksi',function($pembinaan) {
+      return DataTables::of($member)
+            ->addColumn('aksi',function($member) {
               return '
             <div class="btn-group">
             <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="true">Pindah
@@ -238,15 +238,15 @@ class PembinaanController extends Controller
             </button>
             <ul class="dropdown-menu" role="menu">
               <li>
-                <a href="pindah/'.$pembinaan->id.'/status-2"> Draft
+                <a href="pindah/'.$member->id.'/status-2"> Draft
                 </a>
               </li>
               <li>
-                <a href="pindah/'.$pembinaan->id.'/status-3"> Karantina
+                <a href="pindah/'.$member->id.'/status-3"> Karantina
                 </a>
               </li>
               <li>
-                <a href="pindah/'.$pembinaan->id.'/status-4"> Aktif
+                <a href="pindah/'.$member->id.'/status-4"> Aktif
                 </a>
               </li>
             </ul>
@@ -256,47 +256,47 @@ class PembinaanController extends Controller
     }
 
 
-    public function apipembinaan()
+    public function apimember()
     {
-        if(Auth::user()->role !== 'ikhwah') {
-          $pembinaan = DB::table('pembinaans')
-                            ->leftjoin('bisnis','pembinaans.businesses_id','=','bisnis.id')
-                            ->leftjoin('tags','pembinaans.id','=','tags.id_pembinaan')
-                            ->select('pembinaans.*','bisnis.nama as nama_bisnis','tags.tag')
-                            ->where('input','bip')
+        if(Auth::user()->role !== 'admin_super') {
+          $member = DB::table('members')
+                            ->leftjoin('businesses','members.businesses_id','=','businesses.id')
+                            // ->leftjoin('tags','members.id','=','tags.id_member')
+                            ->select('members.*','businesses.nama as nama_bisnis')
+                            ->where('input_by','admin_bip')
                             ->get();
-          // $pembinaan = Pembinaan::where('input','bip');
+          // $member = Member::where('input','bip');
         } else {
-          $pembinaan = Pembinaan::all();
+          $member = Member::all();
         }
-        return DataTables::of($pembinaan)
-        ->addColumn('aksi', function($pembinaan){
-            return '<a onclick="editData('.$pembinaan->id.')" class="btn btn-info btn-xs">Edit</a>'.''.
-            '<a onclick="deleteData('.$pembinaan->id.')"class="btn btn-danger btn-xs">Delete</a>'.''.
-            /*'<a onclick="prosesData('.$pembinaan->id.')"class="icon-arrow-right"> </a>'*/
+        return DataTables::of($member)
+        ->addColumn('aksi', function($member){
+            return '<a onclick="editData('.$member->id.')" class="btn btn-info btn-xs">Edit</a>'.''.
+            '<a onclick="deleteData('.$member->id.')"class="btn btn-danger btn-xs">Delete</a>'.''.
+            /*'<a onclick="prosesData('.$member->id.')"class="icon-arrow-right"> </a>'*/
             '<div class="btn-group">
             <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="true">Pindah
             <i class="fa fa-angle-down"></i>
             </button>
             <ul class="dropdown-menu" role="menu">
               <li>
-                <a href="pindah/'.$pembinaan->id.'/status-2"> Draft
+                <a href="pindah/'.$member->id.'/status-2"> Draft
                 </a>
               </li>
               <li>
-                <a href="pindah/'.$pembinaan->id.'/status-3"> Karantina
+                <a href="pindah/'.$member->id.'/status-3"> Karantina
                 </a>
               </li>
               <li>
-                <a href="pindah/'.$pembinaan->id.'/status-4"> Aktif
+                <a href="pindah/'.$member->id.'/status-4"> Aktif
                 </a>
               </li>
             </ul>
           </div>';
-        })->addColumn('edit_bip',function($pembinaan){
-          return '<a href="javascript:;" onclick="edit('.$pembinaan->id.')" class="btn btn-xs btn-primary"><i class="fa fa-pencil"></i> Edit</a>';
-        })->addColumn('delete_bip',function($pembinaan){
-          return '<a href="'.route('userdata.bip.destroy',$pembinaan->id).'" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Hapus</a>';
+        })->addColumn('edit_bip',function($member){
+          return '<a href="javascript:;" onclick="edit('.$member->id.')" class="btn btn-xs btn-primary"><i class="fa fa-pencil"></i> Edit</a>';
+        })->addColumn('delete_bip',function($member){
+          return '<a href="'.route('userdata.bip.destroy',$member->id).'" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Hapus</a>';
         })->escapeColumns([])->make(true);
     }
 
@@ -322,9 +322,10 @@ class PembinaanController extends Controller
     }
 
     public function export(){
-      $data = DB::table('pembinaans')
+      $data = DB::table('members')
                 ->select('nama','kelamin','umur','angkatan','jurusan','kelas','no_telp','email','instansi','businesses_id')
-                ->where('kolam','=','bip')
+                ->where('event_id','=','bip')
+                ->orWhere('event_id','=','makeit')
                 ->get();
 
       $table = array_map( function($data){

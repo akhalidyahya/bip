@@ -56,7 +56,7 @@
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-black">
-                    <span class="caption-subject bold uppercase">Anggota Kelompok <a href="{{url('bip/profiles/detail').'/'.$bisnis->id}}">{{$bisnis->nama}}</a></span>
+                    <span class="caption-subject bold uppercase">Anggota Kelompok <a href="{{url('bip/profiles/detail').'/'.$business->id}}">{{$business->nama}}</a></span>
                 </div>
             </div>
             <div class="portlet-body form">
@@ -74,7 +74,7 @@
                     </tbody>
                 </table>
             </div>
-            <a class="btn btn-primary" href="{{url('bip/profiles/detail').'/'.$bisnis->id}}"><i class="fa fa-arrow-left"></i> Selesai</a>
+            <a class="btn btn-primary" href="{{url('bip/profiles/detail').'/'.$business->id}}"><i class="fa fa-arrow-left"></i> Selesai</a>
         </div>
     </div>
     <div class="col-md-5">
@@ -108,7 +108,7 @@
     var t = $('#table2').DataTable({
         'processing'  : true,
         'serverSide'  : true,
-        'ajax'        : "{{ url('api/anggotakelompok').'/'.$bisnis->id }}",
+        'ajax'        : "{{ url('api/anggotakelompok').'/'.$business->id }}",
         'dataType'    : 'json',
         'paging'      : true,
         'lengthChange': true,
@@ -123,7 +123,7 @@
     var t2 = $('#table').DataTable({
         'processing'  : true,
         'serverSide'  : true,
-        'ajax'        : "{{ url('api/anggotabip').'/'.$bisnis->id }}",
+        'ajax'        : "{{ url('api/anggotabip').'/'.$business->id }}",
         'dataType'    : 'json',
         'paging'      : true,
         'lengthChange': true,
@@ -139,7 +139,7 @@
     function tambah(id){
         var csrf_token = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
-        url:'{{url('bip/profiles/anggota/tambah/')}}'+'/'+id+'/'+{{$bisnis->id}},
+        url:'{{url('bip/profiles/anggota/tambah/')}}'+'/'+id+'/'+{{$business->id}},
         type:'POST',
         data: {'_method': 'PATCH','_token': csrf_token},
         success: function($data){

@@ -6,11 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 
-use App\Anggota;
-use App\Pembinaan;
-use App\Bisnis;
+use App\Member;
+use App\Business;
 use App\Activity;
-use App\Tag;
 
 use Excel;
 // use DB;
@@ -59,8 +57,8 @@ class BusinessController extends Controller
           'pendapatan' => $request['pendapatan'],
           'penjelasan' => $request['penjelasan'],
         ];
-        Bisnis::create($data);
-        $bisnis = Bisnis::orderBy('id','desc')->first();
+        Business::create($data);
+        $Business = Business::orderBy('id','desc')->first();
         for ($i=0; $i < count($request['anggota']); $i++) {
           $data=[
             'nama' => $request['anggota'][$i]['anggota'],
@@ -69,12 +67,12 @@ class BusinessController extends Controller
             'instansi' => $request['anggota'][$i]['instansi'],
             'email' => $request['anggota'][$i]['email'],
             'no_telp' => $request['anggota'][$i]['phone'],
-            'status' => 1,
-            'kolam' => 'bip',
-            'businesses_id' => $bisnis->id,
-            'input' => 'bip'
+            'level' => 1,
+            'event_id' => 'bip',
+            'businesses_id' => $Business->id,
+            'input_by' => 'admin_bip'
           ];
-          Pembinaan::create($data);
+          Member::create($data);
         }
 
         return redirect('bip/profiles');
@@ -100,7 +98,7 @@ class BusinessController extends Controller
      */
     public function edit($id)
     {
-      $info = DB::table('bisnis')->where('id',$id)->get();
+      $info = DB::table('Business')->where('id',$id)->get();
       return view('pages/editprofilebusiness',[
         'info'=> $info,
         'sidebar'=> 'bipprofilebusiness'
@@ -109,27 +107,27 @@ class BusinessController extends Controller
 
     public function anggota($id)
     {
-      $anggota = DB::table('pembinaans')->where('businesses_id',$id)->get();
+      $anggota = DB::table('members')->where('businesses_id',$id)->get();
       return view('pages/editanggotabusiness',[
-        'bisnis' => Bisnis::find($id),
+        'business' => Business::find($id),
         'anggota'=> $anggota,
-        'all_anggota' => Pembinaan::where('input','bip')->get(),
+        'all_anggota' => Member::where('input_by','admin_bip')->get(),
         'sidebar'=> 'bipprofilebusiness'
       ]);
     }
 
     public function removeAnggota($id) {
-      $anggota = Pembinaan::find($id);
+      $anggota = Member::find($id);
       $data = [
         'businesses_id' => ''
       ];
       $anggota->update($data);
     }
 
-    public function tambahAnggota($id,$bisnis) {
-      $anggota = Pembinaan::find($id);
+    public function tambahAnggota($id,$Business) {
+      $anggota = Member::find($id);
       $data = [
-        'businesses_id' => $bisnis
+        'businesses_id' => $Business
       ];
       $anggota->update($data);
     }
@@ -145,17 +143,13 @@ class BusinessController extends Controller
         'instansi' => $request['instansi'],
         'email' => $request['email'],
         'no_telp' => $request['no_telp'],
-        'status' => 1,
-        'kolam' => 'bip',
+        'level' => 1,
+        'event_id' => 'bip',
         'businesses_id' => $request['kelompok'],
-        'input' => 'bip'
+        'input_by' => 'admin_bip'
       ];
-      Pembinaan::create($data);
-      $pembinaan = Pembinaan::orderBy('id','desc')->first();
-      Tag::create([
-        'id_pembinaan' => $pembinaan->id,
-        'tag' => 'bip'
-      ]);
+      Member::create($data);
+      $Member = Member::orderBy('id','desc')->first();
       // return redirect('bip/userdata');
     }
 
@@ -170,22 +164,17 @@ class BusinessController extends Controller
         'instansi' => $request['instansi'],
         'email' => $request['email'],
         'no_telp' => $request['no_telp'],
-        'status' => 1,
-        'kolam' => 'bip',
+        'level' => 1,
+        'event_id' => 'makeit',
         'businesses_id' => $request['kelompok'],
-        'input' => 'bip'
+        'input_by' => 'admin_bip'
       ];
-      Pembinaan::create($data);
-      $pembinaan = Pembinaan::orderBy('id','desc')->first();
-      Tag::create([
-        'id_pembinaan' => $pembinaan->id,
-        'tag' => 'makeit'
-      ]);
+      Member::create($data);
       // return redirect('bip/userdata');
     }
 
     function updateAnggota(Request $request){
-      $anggota = Pembinaan::find($request['id']);
+      $anggota = Member::find($request['id']);
       $data=[
         'nama' => $request['nama'],
         'angkatan' => $request['angkatan'],
@@ -196,17 +185,17 @@ class BusinessController extends Controller
         'instansi' => $request['instansi'],
         'email' => $request['email'],
         'no_telp' => $request['no_telp'],
-        'status' => 1,
-        'kolam' => 'bip',
+        'level' => 1,
+        'event_id' => 'bip',
         'businesses_id' => $request['kelompok'],
-        'input' => 'bip'
+        'input_by' => 'admin_bip'
       ];
       $anggota->update($data);
       return redirect('bip/userdata');
     }
 
     function destroyAnggota(Request $request, $id){
-      Pembinaan::destroy($id);
+      Member::destroy($id);
       return redirect('bip/userdata');
     }
 
@@ -219,7 +208,7 @@ class BusinessController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $bisnis = Bisnis::find($id);
+        $Business = Business::find($id);
         $data = [
           'nama' => $request->nama,
           'lokasi' => $request->lokasi,
@@ -227,8 +216,8 @@ class BusinessController extends Controller
           'penjelasan' => $request->penjelasan,
           'batch' => $request->batch
         ];
-        $bisnis->update($data);
-        return redirect('bip/profiles/'.$bisnis->id.'/edit');
+        $Business->update($data);
+        return redirect('bip/profiles/'.$Business->id.'/edit');
     }
 
     /**
@@ -239,42 +228,42 @@ class BusinessController extends Controller
      */
     public function destroy($id)
     {
-        Bisnis::destroy($id);
+        Business::destroy($id);
     }
 
     public function userdata()
     {
       return view('pages/userdatabip',[
         'sidebar' => 'bipuserdata',
-        'bisnis' => Bisnis::all()
+        'business' => Business::all()
       ]);
     }
 
-    public function apiBisnis()
+    public function apiBusiness()
     {
-      $bisnis = Bisnis::all();
+      $Business = Business::all();
 
-      return DataTables::of($bisnis)
-        ->addColumn('aksi',function($bisnis) {
-          return '<a onclick="info('.$bisnis->id.')" class="btn btn-icon-only blue"><i class="fa fa-info"></i> </a>'.' '.
-          // '<a onclick="detail('.$bisnis->id.')" class="btn btn-icon-only default"><i class="fa fa-gear"></i></a>'.' '.
-          '<a onclick="deleteData('.$bisnis->id.')" class="btn btn-icon-only red"><i class="fa fa-times"></i> </a>';
+      return DataTables::of($Business)
+        ->addColumn('aksi',function($Business) {
+          return '<a onclick="info('.$Business->id.')" class="btn btn-icon-only blue"><i class="fa fa-info"></i> </a>'.' '.
+          // '<a onclick="detail('.$Business->id.')" class="btn btn-icon-only default"><i class="fa fa-gear"></i></a>'.' '.
+          '<a onclick="deleteData('.$Business->id.')" class="btn btn-icon-only red"><i class="fa fa-times"></i> </a>';
       })->escapeColumns([])->make(true);
     }
 
     public function detail($id)
     {
-      $anggota = DB::table('bisnis')
-                ->leftjoin('pembinaans','pembinaans.businesses_id','=','bisnis.id')
-                ->select('pembinaans.nama','pembinaans.angkatan')
-                ->where('bisnis.id', $id)
+      $anggota = DB::table('businesses')
+                ->leftjoin('members','members.businesses_id','=','businesses.id')
+                ->select('members.nama','members.angkatan')
+                ->where('businesses.id', $id)
                 ->get();
-      $info = DB::table('bisnis')
+      $info = DB::table('businesses')
               ->where('id',$id)->get();
-      $act = DB::table('bisnis')
-                ->leftjoin('activities','activities.businesses_id','=','bisnis.id')
+      $act = DB::table('businesses')
+                ->leftjoin('activities','activities.businesses_id','=','businesses.id')
                 ->select('activities.*')
-                ->where('bisnis.id', $id)
+                ->where('businesses.id', $id)
                 ->orderBy("activities.tanggal")
                 ->get();
       return view('pages/detail',[
@@ -286,10 +275,10 @@ class BusinessController extends Controller
     }
 
     public function test($id){
-      $act = DB::table('bisnis')
-                ->leftjoin('activities','activities.businesses_id','=','bisnis.id')
+      $act = DB::table('business')
+                ->leftjoin('activities','activities.businesses_id','=','businesses.id')
                 ->select('activities.*')
-                ->where('bisnis.id', $id)
+                ->where('businesses.id', $id)
                 ->orderBy("activities.tanggal")
                 ->get();
       return $act[0]->judul;
@@ -302,7 +291,7 @@ class BusinessController extends Controller
         'tanggal' => date('Y-m-d H:i:s', strtotime($request['tanggal'])),
         'isi' => $request['isi'],
         'pendapatan' => $request['pendapatan'],
-        'businesses_id' => $request['bisnisId'],
+        'businesses_id' => $request['BusinessId'],
         'penulis' => $request['penulis']
       ];
       Activity::create($data);
@@ -311,12 +300,12 @@ class BusinessController extends Controller
     }
 
     public function export(){
-      $data = Bisnis::all();
+      $data = Business::all();
 
       $table = array_map( function($data){
           return (array) $data;
       },$data->toArray());
-      return Excel::create('List Kelompok Bisnis',function($excel) use ($table){
+      return Excel::create('List Kelompok Business',function($excel) use ($table){
         $excel->sheet('sheet1',function($sheet) use($table){
           $sheet->fromArray($table);
         });
@@ -327,9 +316,9 @@ class BusinessController extends Controller
       Activity::destroy($id);
     }
 
-    public function apiAnggotaBIP($bisnis)
+    public function apiAnggotaBIP($Business)
     {
-      $anggota = Pembinaan::where('input','bip')->where('businesses_id','!=',$bisnis)->get();
+      $anggota = Member::where('input_by','admin_bip')->where('businesses_id','!=',$Business)->get();
 
       return DataTables::of($anggota)
         ->addColumn('aksi',function($anggota) {
@@ -339,7 +328,7 @@ class BusinessController extends Controller
 
     public function apiAnggotaKelompok($id)
     {
-      $anggota = Pembinaan::where('businesses_id',$id)->get();
+      $anggota = Member::where('businesses_id',$id)->get();
 
       return DataTables::of($anggota)
         ->addColumn('aksi',function($anggota) {
